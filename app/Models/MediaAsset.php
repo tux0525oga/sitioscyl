@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MediaAsset extends Model
 {
@@ -70,11 +70,20 @@ class MediaAsset extends Model
     }
 
     public function serviceLinks(): HasMany
-	{
-		return $this->hasMany(
-			ServiceMedia::class,
-			'mediaId',
-			'mediaId'
-		);
-	}
+    {
+        return $this->hasMany(
+            ServiceMedia::class,
+            'mediaId',
+            'mediaId'
+        );
+    }
+
+    public function projectLinks(): HasMany
+    {
+        return $this->hasMany(
+            ProjectMedia::class,
+            'mediaId',
+            'mediaId'
+        );
+    }
 }

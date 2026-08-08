@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class MediaCategory extends Model
+class Tag extends Model
 {
     use HasUlids;
 
-    protected $table = 'mediacategory';
+    protected $table = 'tag';
 
-    protected $primaryKey = 'mediaCategoryId';
+    protected $primaryKey = 'tagId';
 
     public $incrementing = false;
 
@@ -23,36 +23,25 @@ class MediaCategory extends Model
 
     protected $fillable = [
         'name',
-        'code',
-        'displayOrder',
+        'slug',
         'isActive',
     ];
 
     protected function casts(): array
     {
         return [
-            'displayOrder' => 'integer',
             'isActive' => 'boolean',
             'createdAt' => 'datetime',
             'updatedAt' => 'datetime',
         ];
     }
 
-    public function serviceMediaLinks(): HasMany
+    public function projectLinks(): HasMany
     {
         return $this->hasMany(
-            ServiceMedia::class,
-            'mediaCategoryId',
-            'mediaCategoryId'
-        );
-    }
-
-    public function projectMediaLinks(): HasMany
-    {
-        return $this->hasMany(
-            ProjectMedia::class,
-            'mediaCategoryId',
-            'mediaCategoryId'
+            ProjectTag::class,
+            'tagId',
+            'tagId'
         );
     }
 }

@@ -8,23 +8,21 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Service extends Model
+class Project extends Model
 {
     use HasUlids;
     use SoftDeletes;
 
-    protected $table = 'service';
+    protected $table = 'project';
 
-    protected $primaryKey = 'serviceId';
+    protected $primaryKey = 'projectId';
 
     public $incrementing = false;
 
     protected $keyType = 'string';
 
     public const CREATED_AT = 'createdAt';
-
     public const UPDATED_AT = 'updatedAt';
-
     public const DELETED_AT = 'deletedAt';
 
     protected $fillable = [
@@ -32,8 +30,11 @@ class Service extends Model
         'slug',
         'shortDescription',
         'description',
-        'heroTitle',
-        'heroSubtitle',
+        'challengeDescription',
+        'solutionDescription',
+        'locationCity',
+        'locationState',
+        'projectYear',
         'featuredImageId',
         'displayOrder',
         'isFeatured',
@@ -44,6 +45,7 @@ class Service extends Model
     protected function casts(): array
     {
         return [
+            'projectYear' => 'integer',
             'displayOrder' => 'integer',
             'isFeatured' => 'boolean',
             'isPublished' => 'boolean',
@@ -63,47 +65,39 @@ class Service extends Model
         );
     }
 
-    public function solutions(): HasMany
+    public function serviceLinks(): HasMany
     {
         return $this->hasMany(
-            ServiceSolution::class,
-            'serviceId',
-            'serviceId'
-        )->orderBy('displayOrder');
-    }
-
-    public function benefits(): HasMany
-    {
-        return $this->hasMany(
-            ServiceBenefit::class,
-            'serviceId',
-            'serviceId'
-        )->orderBy('displayOrder');
-    }
-
-    public function faqLinks(): HasMany
-    {
-        return $this->hasMany(
-            ServiceFaq::class,
-            'serviceId',
-            'serviceId'
+            ProjectService::class,
+            'projectId',
+            'projectId'
         )->orderBy('displayOrder');
     }
 
     public function mediaLinks(): HasMany
     {
         return $this->hasMany(
-            ServiceMedia::class,
-            'serviceId',
-            'serviceId'
+            ProjectMedia::class,
+            'projectId',
+            'projectId'
         )->orderBy('displayOrder');
     }
-	public function projectLinks(): HasMany
-	{
-		return $this->hasMany(
-			ProjectService::class,
-			'serviceId',
-			'serviceId'
-		)->orderBy('displayOrder');
-	}
+
+    public function tagLinks(): HasMany
+    {
+        return $this->hasMany(
+            ProjectTag::class,
+            'projectId',
+            'projectId'
+        );
+    }
+
+    public function comparisons(): HasMany
+    {
+        return $this->hasMany(
+            ProjectComparison::class,
+            'projectId',
+            'projectId'
+        )->orderBy('displayOrder');
+    }
 }
