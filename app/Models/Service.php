@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Service extends Model
 {
@@ -105,5 +106,13 @@ class Service extends Model
 			'serviceId',
 			'serviceId'
 		)->orderBy('displayOrder');
+	}
+	public function seo(): HasOne
+	{
+		return $this->hasOne(
+			ServiceSeo::class,
+			'serviceId',
+			'serviceId'
+		);
 	}
 }

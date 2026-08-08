@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
             CompanyProfileSeeder::class,
             ServiceSeeder::class,
             MediaCategorySeeder::class,
+            TagSeeder::class,
         ]);
     }
 }
