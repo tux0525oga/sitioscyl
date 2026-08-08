@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class UserAccount extends Authenticatable
 {
@@ -65,5 +66,13 @@ class UserAccount extends Authenticatable
     public function getAuthPasswordName(): string
     {
         return 'passwordHash';
+    }
+    public function uploadedMediaAssets(): HasMany
+    {
+        return $this->hasMany(
+            MediaAsset::class,
+            'uploadedBy',
+            'userId'
+         );
     }
 }
