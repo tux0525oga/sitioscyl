@@ -80,4 +80,22 @@ class Service extends Model
             'serviceId'
         )->orderBy('displayOrder');
     }
+
+    public function faqLinks(): HasMany
+    {
+        return $this->hasMany(
+            ServiceFaq::class,
+            'serviceId',
+            'serviceId'
+        )->orderBy('displayOrder');
+    }
+
+    public function mediaLinks(): HasMany
+    {
+        return $this->hasMany(
+            ServiceMedia::class,
+            'serviceId',
+            'serviceId'
+        )->orderBy('displayOrder');
+    }
 }

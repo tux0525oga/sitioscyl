@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
             UserRoleSeeder::class,
             CompanyProfileSeeder::class,
             ServiceSeeder::class,
+            MediaCategorySeeder::class,
         ]);
     }
 }
