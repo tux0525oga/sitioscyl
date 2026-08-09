@@ -115,4 +115,12 @@ class Service extends Model
 			'serviceId'
 		);
 	}
+	public function quoteRequestLinks(): HasMany
+	{
+		return $this->hasMany(
+			QuoteRequestService::class,
+			'serviceId',
+			'serviceId'
+		);
+	}
 }

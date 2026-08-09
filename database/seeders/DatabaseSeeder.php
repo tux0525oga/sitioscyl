@@ -14,6 +14,10 @@ class DatabaseSeeder extends Seeder
             ServiceSeeder::class,
             MediaCategorySeeder::class,
             TagSeeder::class,
+            ContactMethodSeeder::class,
+            PreferredTimeframeSeeder::class,
+            QuoteStatusSeeder::class,
+			QuoteFileCategorySeeder::class,
         ]);
     }
 }

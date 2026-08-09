@@ -75,4 +75,44 @@ class UserAccount extends Authenticatable
             'userId'
          );
     }
+	public function quoteRequestNotes(): HasMany
+	{
+		return $this->hasMany(
+			QuoteRequestNote::class,
+			'userId',
+			'userId'
+		);
+	}
+
+	public function quoteStatusChanges(): HasMany
+	{
+		return $this->hasMany(
+			QuoteStatusHistory::class,
+			'changedBy',
+			'userId'
+		);
+	}
+	public function role(): BelongsTo
+	{
+		return $this->belongsTo(
+			UserRole::class,
+			'userRoleId',
+			'userRoleId'
+		);
+	}
+
+	public function hasAdminAccess(): bool
+	{
+		if (!$this->isActive) {
+			return false;
+    }
+
+    return $this->role()
+        ->where('isActive', true)
+        ->whereIn('code', [
+            'Administrator',
+            'Editor',
+        ])
+        ->exists();
+	}
 }

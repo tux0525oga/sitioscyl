@@ -109,4 +109,12 @@ class Project extends Model
 			'projectId'
 		);
 	}
+	public function quoteRequestReferences(): HasMany
+{
+		return $this->hasMany(
+			QuoteRequest::class,
+			'referenceProjectId',
+			'projectId'
+		);
+	}
 }
