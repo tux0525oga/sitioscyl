@@ -22,11 +22,14 @@ class AdminDashboardController extends Controller
             })
             ->count();
 
+        $sentQuoteCount = QuoteRequest::query()
+            ->whereHas('status', function ($query): void {
+                $query->where('code', 'QuoteSent');
+            })
+            ->count();
+
         $recentQuotes = QuoteRequest::query()
-            ->with([
-                'contact',
-                'status',
-            ])
+            ->with(['contact', 'status'])
             ->orderByDesc('createdAt')
             ->limit(5)
             ->get();
@@ -34,6 +37,7 @@ class AdminDashboardController extends Controller
         return view('admin.dashboard', [
             'newQuoteCount' => $newQuoteCount,
             'openQuoteCount' => $openQuoteCount,
+            'sentQuoteCount' => $sentQuoteCount,
             'recentQuotes' => $recentQuotes,
         ]);
     }

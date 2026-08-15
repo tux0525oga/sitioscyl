@@ -1,10 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminQuoteRequestController;
 use App\Http\Controllers\Admin\PrivateQuoteRequestFileController;
 use App\Http\Middleware\EnsureAdminAccess;
+use Illuminate\Support\Facades\Route;
 
 Route::get(
     '/admin/login',
@@ -29,6 +30,11 @@ Route::middleware([
             '/',
             [AdminDashboardController::class, 'index']
         )->name('dashboard');
+
+        Route::get(
+            '/quotes',
+            [AdminQuoteRequestController::class, 'index']
+        )->name('quotes.index');
 
         Route::post(
             '/logout',
