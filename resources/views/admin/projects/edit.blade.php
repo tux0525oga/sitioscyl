@@ -20,4 +20,5 @@
     @method('PUT')
     @include('admin.projects._form')
 </form>
+@include('admin.projects._media')
 @endsection

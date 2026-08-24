@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\PrivateQuoteRequestFileController;
 use App\Http\Middleware\EnsureAdminAccess;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminProjectController;
-
+use App\Http\Controllers\Admin\AdminProjectMediaController;
 
 Route::get(
     '/admin/login',
@@ -77,6 +77,36 @@ Route::middleware([
             '/projects/{project}',
             [AdminProjectController::class, 'update']
         )->name('projects.update');
+
+        Route::post(
+            '/projects/{project}/media',
+            [AdminProjectMediaController::class, 'store']
+        )->name('projects.media.store');
+
+        Route::put(
+            '/projects/{project}/media/{projectMedia}',
+            [AdminProjectMediaController::class, 'update']
+        )->name('projects.media.update');
+
+        Route::patch(
+            '/projects/{project}/media/{projectMedia}/feature',
+            [AdminProjectMediaController::class, 'feature']
+        )->name('projects.media.feature');
+
+        Route::delete(
+            '/projects/{project}/media/{projectMedia}',
+            [AdminProjectMediaController::class, 'destroy']
+        )->name('projects.media.destroy');
+
+        Route::post(
+            '/projects/{project}/comparisons',
+            [AdminProjectMediaController::class, 'storeComparison']
+        )->name('projects.comparisons.store');
+
+        Route::delete(
+            '/projects/{project}/comparisons/{projectComparison}',
+            [AdminProjectMediaController::class, 'destroyComparison']
+        )->name('projects.comparisons.destroy');
 
         Route::post(
             '/logout',

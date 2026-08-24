@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
+use App\Models\MediaCategory;
 
 class AdminProjectController extends Controller
 {
@@ -68,7 +69,7 @@ class AdminProjectController extends Controller
 
     public function edit(Project $project): View
     {
-        $project->load(['serviceLinks', 'tagLinks']);
+        $project->load(['serviceLinks', 'tagLinks','mediaLinks.mediaAsset','mediaLinks.mediaCategory','comparisons.beforeImage','comparisons.afterImage',]);
 
         return view('admin.projects.edit', array_merge(
             $this->formOptions(),
@@ -250,6 +251,12 @@ class AdminProjectController extends Controller
                 ->where('isActive', true)
                 ->orderBy('name')
                 ->get(),
+            'mediaCategories' => MediaCategory::query()
+                ->where('isActive', true)
+                ->orderBy('displayOrder')
+                ->orderBy('name')
+                ->get(),
+
         ];
     }
 }
