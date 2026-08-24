@@ -36,6 +36,21 @@ Route::middleware([
             [AdminQuoteRequestController::class, 'index']
         )->name('quotes.index');
 
+        Route::get(
+            '/quotes/{quoteRequest}',
+            [AdminQuoteRequestController::class, 'show']
+        )->name('quotes.show');
+
+        Route::patch(
+            '/quotes/{quoteRequest}/status',
+            [AdminQuoteRequestController::class, 'updateStatus']
+        )->name('quotes.status.update');
+
+        Route::post(
+            '/quotes/{quoteRequest}/notes',
+            [AdminQuoteRequestController::class, 'storeNote']
+        )->name('quotes.notes.store');
+
         Route::post(
             '/logout',
             [AdminAuthController::class, 'destroy']

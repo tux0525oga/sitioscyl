@@ -78,7 +78,12 @@
                             <tr>
                                 <td>
                                     <span class="table-primary">
-                                        {{ $quote->folio }}
+                                        <a
+                                            class="text-link table-primary"
+                                            href="{{ route('admin.quotes.show', $quote) }}"
+                                        >
+                                            {{ $quote->folio }}
+                                        </a>
                                     </span>
                                 </td>
 

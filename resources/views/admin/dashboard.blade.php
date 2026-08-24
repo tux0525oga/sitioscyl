@@ -42,7 +42,13 @@
                     <tbody>
                         @foreach ($recentQuotes as $quote)
                             <tr>
-                                <td><span class="table-primary">{{ $quote->folio }}</span></td>
+                                <td><span class="table-primary">
+                                    <a
+                                        class="text-link table-primary"
+                                        href="{{ route('admin.quotes.show', $quote) }}"
+                                    >
+                                    {{ $quote->folio }}
+                                    </a></span></td>
                                 <td>
                                     <span class="table-primary">{{ $quote->contact->firstName }} {{ $quote->contact->lastName }}</span>
                                     @if ($quote->contact->email)<span class="table-secondary">{{ $quote->contact->email }}</span>@endif
