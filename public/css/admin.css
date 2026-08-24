@@ -437,3 +437,123 @@ a { color: inherit; }
         width: 100%;
     }
 }
+/* Admin projects */
+
+.project-form-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(270px, 330px);
+    gap: 22px;
+    align-items: start;
+}
+
+.project-form-main,
+.project-form-aside {
+    display: grid;
+    gap: 22px;
+}
+
+.project-form-aside {
+    position: sticky;
+    top: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.form-field {
+    min-width: 0;
+}
+
+.form-field--wide {
+    grid-column: 1 / -1;
+}
+
+.form-field--spaced {
+    margin-top: 18px;
+}
+
+.admin-input {
+    width: 100%;
+    min-height: 44px;
+    border: 1px solid var(--sc-border);
+    border-radius: 10px;
+    padding: 0 13px;
+    background: var(--sc-white);
+    color: var(--sc-text);
+    outline: none;
+}
+
+.admin-input:focus {
+    border-color: var(--sc-graphite);
+    box-shadow: 0 0 0 3px rgba(36, 55, 70, 0.08);
+}
+
+.classification-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+}
+
+.check-list {
+    display: grid;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.check-item,
+.toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--sc-border);
+    border-radius: 9px;
+    padding: 10px 12px;
+    background: #fafaf8;
+    color: var(--sc-text);
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.check-item input,
+.toggle-row input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 auto;
+}
+
+.toggle-row + .toggle-row {
+    margin-top: 9px;
+}
+
+.project-save-button {
+    min-height: 48px;
+}
+
+.form-error-list {
+    margin: 8px 0 0;
+    padding-left: 20px;
+}
+
+@media (max-width: 1050px) {
+    .project-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .project-form-aside {
+        position: static;
+    }
+}
+
+@media (max-width: 700px) {
+    .form-grid,
+    .classification-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-field--wide {
+        grid-column: auto;
+    }
+}
