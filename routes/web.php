@@ -8,6 +8,10 @@ use App\Http\Middleware\EnsureAdminAccess;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminProjectController;
 use App\Http\Controllers\Admin\AdminProjectMediaController;
+use App\Http\Controllers\Admin\AdminServiceController;
+use App\Http\Controllers\Admin\AdminServiceContentController;
+use App\Http\Controllers\Admin\AdminServiceMediaController;
+use App\Http\Controllers\PublicServiceController;
 
 Route::get(
     '/admin/login',
@@ -93,6 +97,67 @@ Route::middleware([
             [AdminProjectMediaController::class, 'feature']
         )->name('projects.media.feature');
 
+
+        Route::post(
+            '/services/{service}/solutions',
+            [AdminServiceContentController::class, 'storeSolution']
+        )->name('services.solutions.store');
+
+        Route::put(
+            '/services/{service}/solutions/{serviceSolution}',
+            [AdminServiceContentController::class, 'updateSolution']
+        )->name('services.solutions.update');
+
+        Route::delete(
+            '/services/{service}/solutions/{serviceSolution}',
+            [AdminServiceContentController::class, 'destroySolution']
+        )->name('services.solutions.destroy');
+
+        Route::post(
+            '/services/{service}/benefits',
+            [AdminServiceContentController::class, 'storeBenefit']
+        )->name('services.benefits.store');
+
+        Route::put(
+            '/services/{service}/benefits/{serviceBenefit}',
+            [AdminServiceContentController::class, 'updateBenefit']
+        )->name('services.benefits.update');
+
+        Route::delete(
+            '/services/{service}/benefits/{serviceBenefit}',
+            [AdminServiceContentController::class, 'destroyBenefit']
+        )->name('services.benefits.destroy');
+
+        Route::post(
+            '/services/{service}/faqs',
+            [AdminServiceContentController::class, 'storeFaq']
+        )->name('services.faqs.store');
+
+        Route::put(
+            '/services/{service}/faqs/{serviceFaq}',
+            [AdminServiceContentController::class, 'updateFaq']
+        )->name('services.faqs.update');
+
+        Route::delete(
+            '/services/{service}/faqs/{serviceFaq}',
+            [AdminServiceContentController::class, 'destroyFaq']
+        )->name('services.faqs.destroy');
+
+        Route::post(
+            '/services/{service}/media',
+            [AdminServiceMediaController::class, 'store']
+        )->name('services.media.store');
+
+        Route::patch(
+            '/services/{service}/media/{serviceMedia}/feature',
+            [AdminServiceMediaController::class, 'feature']
+        )->name('services.media.feature');
+
+        Route::delete(
+            '/services/{service}/media/{serviceMedia}',
+            [AdminServiceMediaController::class, 'destroy']
+        )->name('services.media.destroy');
+
         Route::delete(
             '/projects/{project}/media/{projectMedia}',
             [AdminProjectMediaController::class, 'destroy']
@@ -107,6 +172,31 @@ Route::middleware([
             '/projects/{project}/comparisons/{projectComparison}',
             [AdminProjectMediaController::class, 'destroyComparison']
         )->name('projects.comparisons.destroy');
+
+        Route::get(
+            '/services',
+            [AdminServiceController::class, 'index']
+        )->name('services.index');
+
+        Route::get(
+            '/services/create',
+            [AdminServiceController::class, 'create']
+        )->name('services.create');
+
+        Route::post(
+            '/services',
+            [AdminServiceController::class, 'store']
+        )->name('services.store');
+
+        Route::get(
+            '/services/{service}/edit',
+            [AdminServiceController::class, 'edit']
+        )->name('services.edit');
+
+        Route::put(
+            '/services/{service}',
+            [AdminServiceController::class, 'update']
+        )->name('services.update');
 
         Route::post(
             '/logout',
@@ -129,3 +219,12 @@ Route::middleware([
             ]
         )->name('quoteFiles.download');
     });
+Route::get(
+    '/servicios',
+    [PublicServiceController::class, 'index']
+)->name('public.services.index');
+
+Route::get(
+    '/servicios/{service:slug}',
+    [PublicServiceController::class, 'show']
+)->name('public.services.show');

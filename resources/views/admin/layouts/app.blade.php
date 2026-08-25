@@ -26,7 +26,12 @@
                                                 >
                                                 Proyectos
                                                 </a></span>
-                <span class="admin-nav__link">Servicios</span>
+                <span class="admin-nav__link"><a
+                                                    class="admin-nav__link {{ request()->routeIs('admin.services.*') ? 'is-active' : '' }}"
+                                                    href="{{ route('admin.services.index') }}"
+                                                >
+                                                Servicios
+                                                </a></span>
                 <span class="admin-nav__link">Multimedia</span>
                 <span class="admin-nav__link">Configuración</span>
             </nav>
