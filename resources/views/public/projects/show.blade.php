@@ -123,7 +123,19 @@
             <h2>Quiero algo como esto.</h2>
             <p>Podemos tomar este proyecto como referencia para desarrollar una propuesta adaptada a tu espacio.</p>
         </div>
-        <a class="public-button" href="/cotizar?project={{ urlencode($project->slug) }}">Solicitar una propuesta</a>
+        <a
+            class="public-button public-button--light"
+                href="{{
+                route(
+                    'public.quote.create',
+                    [
+                        'project' => $project->slug,
+                    ]
+                    )
+                }}"
+            >
+                Solicitar una propuesta
+            </a>
     </div>
 </section>
 @endsection

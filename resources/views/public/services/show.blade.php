@@ -15,7 +15,19 @@
         <span class="eyebrow eyebrow--light">SERVICIO</span>
         <h1>{{ $service->heroTitle ?: $service->name }}</h1>
         <p>{{ $service->heroSubtitle ?: $service->shortDescription }}</p>
-        <a class="public-button" href="#" aria-disabled="true">Cotizar este servicio</a>
+        <a
+            class="public-button"
+            href="{{
+            route(
+                'public.quote.create',
+                    [
+                        'service' => $service->slug,
+                    ]
+                )
+            }}"
+        >
+        Cotizar este servicio
+        </a>
     </div>
 </section>
 @if ($service->description)

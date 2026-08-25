@@ -88,3 +88,844 @@
 .project-detail-hero .project-detail-meta {
     color: rgba(255, 255, 255, 0.82);
 }
+
+/* Public quote */
+
+.quote-public-hero {
+    padding: 90px 0 82px;
+    background:
+        linear-gradient(
+            135deg,
+            var(--deep),
+            #334653
+        );
+    color: var(--white);
+}
+
+.quote-public-hero h1,
+.quote-step__heading h2,
+.quote-thanks h1 {
+    max-width: 780px;
+    margin: 12px 0 18px;
+    font-family: Georgia, serif;
+    font-size: clamp(38px, 5vw, 64px);
+    font-weight: 500;
+    line-height: 1;
+}
+
+.quote-public-hero p {
+    max-width: 650px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 15px;
+    line-height: 1.75;
+}
+
+.quote-form-shell {
+    max-width: 1040px;
+}
+
+.quote-alert {
+    margin-bottom: 22px;
+    padding: 18px 20px;
+    border: 1px solid var(--border);
+    background: var(--white);
+}
+
+.quote-alert--error {
+    border-color: #d8a8a5;
+    background: #fff4f3;
+    color: #8b3430;
+}
+
+.quote-alert ul {
+    margin: 8px 0 0;
+    padding-left: 20px;
+}
+
+.quote-stepper {
+    display: grid;
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+    margin-bottom: 24px;
+    border: 1px solid var(--border);
+    background: var(--white);
+}
+
+.quote-stepper__item {
+    display: flex;
+    min-height: 70px;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+    color: var(--muted);
+}
+
+.quote-stepper__item
++ .quote-stepper__item {
+    border-left: 1px solid var(--border);
+}
+
+.quote-stepper__item span {
+    display: grid;
+    width: 28px;
+    height: 28px;
+    flex: 0 0 auto;
+    place-items: center;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.quote-stepper__item strong {
+    font-size: 11px;
+}
+
+.quote-stepper__item.is-active {
+    color: var(--text);
+}
+
+.quote-stepper__item.is-active span {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--deep);
+}
+
+.quote-stepper__item.is-complete span {
+    border-color: var(--graphite);
+    background: var(--graphite);
+    color: var(--white);
+}
+
+.quote-public-form {
+    border: 1px solid var(--border);
+    background: var(--white);
+}
+
+.quote-step {
+    display: none;
+    padding: 42px;
+}
+
+.quote-step.is-active {
+    display: block;
+}
+
+.quote-step__heading {
+    margin-bottom: 32px;
+}
+
+.quote-step__heading h2 {
+    margin-top: 8px;
+    font-size: clamp(30px, 4vw, 46px);
+}
+
+.quote-step__heading p {
+    max-width: 620px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.quote-service-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.quote-choice-card {
+    position: relative;
+    cursor: pointer;
+}
+
+.quote-choice-card input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.quote-choice-card__content {
+    display: block;
+    min-height: 135px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    background: #fafaf8;
+    transition:
+        border-color 160ms ease,
+        background 160ms ease,
+        transform 160ms ease;
+}
+
+.quote-choice-card__content strong,
+.quote-choice-card__content small {
+    display: block;
+}
+
+.quote-choice-card__content strong {
+    font-family: Georgia, serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.15;
+}
+
+.quote-choice-card__content small {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.quote-choice-card input:checked
++ .quote-choice-card__content {
+    border-color: var(--accent);
+    background: #fffaf0;
+    box-shadow:
+        inset 0 0 0 1px var(--accent);
+    transform: translateY(-1px);
+}
+
+.quote-form-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.quote-field {
+    min-width: 0;
+}
+
+.quote-field--spaced {
+    margin-top: 24px;
+}
+
+.quote-field label,
+.quote-file-card label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.quote-field label small {
+    color: var(--muted);
+    font-weight: 500;
+}
+
+.quote-field input,
+.quote-field select,
+.quote-field textarea {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 0;
+    background: var(--white);
+    color: var(--text);
+    outline: none;
+}
+
+.quote-field input,
+.quote-field select {
+    min-height: 46px;
+    padding: 0 13px;
+}
+
+.quote-field textarea {
+    resize: vertical;
+    min-height: 130px;
+    padding: 13px;
+    line-height: 1.6;
+}
+
+.quote-field input:focus,
+.quote-field select:focus,
+.quote-field textarea:focus {
+    border-color: var(--accent);
+    box-shadow:
+        0 0 0 2px rgba(212, 175, 55, 0.12);
+}
+
+.quote-field__hint {
+    display: block;
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.quote-step__actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    margin-top: 34px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+}
+
+.quote-step__actions--end {
+    justify-content: flex-end;
+}
+
+.quote-secondary-button {
+    display: inline-flex;
+    min-height: 46px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    border: 1px solid var(--border);
+    background: var(--white);
+    color: var(--text);
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 850;
+    text-decoration: none;
+}
+
+.quote-secondary-button--link {
+    margin-top: 22px;
+}
+
+.quote-step .public-button {
+    margin-top: 0;
+    border: 0;
+    cursor: pointer;
+}
+
+.quote-step .public-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+.quote-file-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.quote-file-card {
+    padding: 18px;
+    border: 1px solid var(--border);
+    background: #fafaf8;
+}
+
+.quote-file-card--wide {
+    grid-column: 1 / -1;
+}
+
+.quote-file-card input {
+    width: 100%;
+    font-size: 11px;
+}
+
+.quote-file-card small {
+    display: block;
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.quote-submit-summary {
+    margin-top: 24px;
+    padding: 18px;
+    border-left: 3px solid var(--accent);
+    background: #fafaf8;
+}
+
+.quote-submit-summary strong {
+    display: block;
+    font-family: Georgia, serif;
+    font-size: 18px;
+}
+
+.quote-submit-summary p {
+    margin: 5px 0 0;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.quote-honeypot {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    opacity: 0 !important;
+}
+
+.quote-thanks {
+    min-height: calc(100vh - 180px);
+    padding: 100px 0;
+}
+
+.quote-thanks__inner {
+    max-width: 800px;
+    text-align: center;
+}
+
+.quote-thanks__check {
+    display: grid;
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 24px;
+    place-items: center;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    color: var(--accent);
+    font-size: 24px;
+}
+
+.quote-thanks h1 {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.quote-thanks p {
+    max-width: 600px;
+    margin: 0 auto;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.75;
+}
+
+.quote-folio {
+    display: inline-block;
+    margin: 30px 0;
+    padding: 16px 24px;
+    border: 1px solid var(--graphite);
+    background: var(--white);
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+}
+
+.quote-thanks__secondary {
+    font-size: 12px !important;
+}
+
+.quote-thanks__actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+@media (max-width: 900px) {
+    .quote-service-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+    .quote-public-hero {
+        padding: 64px 0;
+    }
+
+    .quote-stepper {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .quote-stepper__item:nth-child(3) {
+        border-left: 0;
+        border-top: 1px solid var(--border);
+    }
+
+    .quote-stepper__item:nth-child(4) {
+        border-top: 1px solid var(--border);
+    }
+
+    .quote-step {
+        padding: 26px 20px;
+    }
+
+    .quote-service-grid,
+    .quote-form-grid,
+    .quote-file-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .quote-file-card--wide {
+        grid-column: auto;
+    }
+
+    .quote-step__actions,
+    .quote-thanks__actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .quote-step__actions .public-button,
+    .quote-step__actions
+    .quote-secondary-button,
+    .quote-thanks__actions a {
+        width: 100%;
+    }
+}
+
+.quote-thanks__warning {
+    max-width: 620px;
+    margin: 24px auto 0;
+    padding: 14px 16px;
+    border: 1px solid #d4af37;
+    background: #fffaf0;
+    color: #67571f;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+/* ===== AJUSTE VISUAL /COTIZAR ===== */
+
+.quote-public-hero {
+    padding: 72px 0 52px;
+    background: #f6f4ee;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+}
+
+.quote-public-hero h1 {
+    color: var(--text);
+    max-width: 760px;
+    margin: 12px 0 18px;
+    font-family: Georgia, serif;
+    font-size: clamp(42px, 5vw, 70px);
+    font-weight: 500;
+    line-height: 0.98;
+}
+
+.quote-public-hero p {
+    max-width: 720px;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.7;
+}
+
+/* Stepper */
+.quote-stepper {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-bottom: 28px;
+    border: 1px solid var(--border);
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+}
+
+.quote-stepper__item {
+    display: flex;
+    min-height: 86px;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 20px;
+    color: var(--muted);
+}
+
+.quote-stepper__item + .quote-stepper__item {
+    border-left: 1px solid var(--border);
+}
+
+.quote-stepper__item span {
+    display: grid;
+    width: 36px;
+    height: 36px;
+    flex: 0 0 auto;
+    place-items: center;
+    border: 1px solid #cfd6dc;
+    border-radius: 50%;
+    background: #f8fafc;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.quote-stepper__item strong {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+}
+
+.quote-stepper__item.is-active {
+    background: #fffaf0;
+    color: var(--text);
+}
+
+.quote-stepper__item.is-active span {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--deep);
+}
+
+.quote-stepper__item.is-complete {
+    color: var(--text);
+}
+
+.quote-stepper__item.is-complete span {
+    border-color: var(--graphite);
+    background: var(--graphite);
+    color: #ffffff;
+}
+
+/* Tarjeta principal del formulario */
+.quote-public-form {
+    border: 1px solid var(--border);
+    background: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 10px 26px rgba(15, 23, 42, 0.05);
+}
+
+.quote-step {
+    display: none;
+    padding: 40px;
+}
+
+.quote-step.is-active {
+    display: block;
+}
+
+.quote-step__heading {
+    margin-bottom: 26px;
+}
+
+.quote-step__heading h2 {
+    margin-top: 8px;
+    margin-bottom: 10px;
+    color: var(--text);
+    font-family: Georgia, serif;
+    font-size: clamp(34px, 4vw, 52px);
+    font-weight: 500;
+    line-height: 1.05;
+}
+
+.quote-step__heading p {
+    max-width: 680px;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* Labels */
+.quote-field label,
+.quote-file-card label {
+    display: block;
+    margin-bottom: 9px;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 800;
+}
+
+/* Grid */
+.quote-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+/* Inputs */
+.quote-field input,
+.quote-field select,
+.quote-field textarea {
+    width: 100%;
+    border: 1.5px solid #cfd6dc;
+    border-radius: 10px;
+    background: #ffffff;
+    color: var(--text);
+    outline: none;
+    box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.04);
+    transition:
+        border-color 160ms ease,
+        box-shadow 160ms ease,
+        background 160ms ease;
+}
+
+.quote-field input,
+.quote-field select {
+    min-height: 52px;
+    padding: 0 15px;
+    font-size: 15px;
+}
+
+.quote-field textarea {
+    min-height: 190px;
+    padding: 15px;
+    font-size: 15px;
+    line-height: 1.6;
+    resize: vertical;
+}
+
+.quote-field input::placeholder,
+.quote-field textarea::placeholder {
+    color: #94a3b8;
+}
+
+.quote-field input:focus,
+.quote-field select:focus,
+.quote-field textarea:focus {
+    border-color: var(--accent);
+    background: #fffefb;
+    box-shadow:
+        0 0 0 4px rgba(212, 175, 55, 0.14);
+}
+
+/* Select más visible */
+.quote-field select {
+    cursor: pointer;
+}
+
+/* Tarjetas de servicios */
+.quote-service-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.quote-choice-card__content {
+    display: block;
+    min-height: 142px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #fafaf8;
+    transition:
+        border-color 160ms ease,
+        background 160ms ease,
+        transform 160ms ease,
+        box-shadow 160ms ease;
+}
+
+.quote-choice-card__content strong {
+    display: block;
+    color: var(--text);
+    font-family: Georgia, serif;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.15;
+}
+
+.quote-choice-card__content small {
+    display: block;
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.quote-choice-card input:checked + .quote-choice-card__content {
+    border-color: var(--accent);
+    background: #fffaf0;
+    box-shadow: 0 8px 18px rgba(212, 175, 55, 0.12);
+    transform: translateY(-2px);
+}
+
+/* Archivos */
+.quote-file-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.quote-file-card {
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #fafaf8;
+}
+
+.quote-file-card--wide {
+    grid-column: 1 / -1;
+}
+
+.quote-file-card input[type="file"] {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 13px;
+}
+
+.quote-file-card small {
+    display: block;
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* Botones */
+.quote-step__actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    margin-top: 34px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+}
+
+.quote-step__actions--end {
+    justify-content: flex-end;
+}
+
+.quote-secondary-button {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 22px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #ffffff;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.quote-step .public-button {
+    min-height: 48px;
+    padding: 0 24px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .quote-service-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+    .quote-stepper {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .quote-stepper__item:nth-child(3) {
+        border-left: 0;
+        border-top: 1px solid var(--border);
+    }
+
+    .quote-stepper__item:nth-child(4) {
+        border-top: 1px solid var(--border);
+    }
+
+    .quote-step,
+    .quote-form-grid,
+    .quote-file-grid,
+    .quote-service-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .quote-step {
+        padding: 26px 20px;
+    }
+
+    .quote-step__actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .quote-step__actions .public-button,
+    .quote-step__actions .quote-secondary-button {
+        width: 100%;
+    }
+}

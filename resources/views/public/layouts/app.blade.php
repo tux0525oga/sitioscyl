@@ -32,7 +32,12 @@
                                                     >
                                                     Proyectos
                                                 </a></a>
-                <a href="#" aria-disabled="true">Cotizar</a>
+                <a href="#" aria-disabled="true"><a
+                                                    class="{{ request()->routeIs('public.quote.*') ? 'is-active' : '' }}"
+                                                    href="{{ route('public.quote.create') }}"
+                                                    >
+                                                    Cotizar
+                                                </a></a>
                 <a href="#" aria-disabled="true">Contacto</a>
             </nav>
         </div>

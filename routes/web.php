@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\AdminServiceContentController;
 use App\Http\Controllers\Admin\AdminServiceMediaController;
 use App\Http\Controllers\PublicServiceController;
 use App\Http\Controllers\PublicProjectController;
+use App\Http\Controllers\PublicQuoteController;
 
 Route::get(
     '/admin/login',
@@ -239,3 +240,20 @@ Route::get(
     '/proyectos/{project:slug}',
     [PublicProjectController::class, 'show']
 )->name('public.projects.show');
+
+Route::get(
+    '/cotizar',
+    [PublicQuoteController::class, 'create']
+)->name('public.quote.create');
+
+Route::post(
+    '/cotizar',
+    [PublicQuoteController::class, 'store']
+)
+    ->middleware('throttle:10,1')
+    ->name('public.quote.store');
+
+Route::get(
+    '/cotizar/gracias/{quoteRequest:folio}',
+    [PublicQuoteController::class, 'thanks']
+)->name('public.quote.thanks');
