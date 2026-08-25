@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\AdminServiceMediaController;
 use App\Http\Controllers\PublicServiceController;
 use App\Http\Controllers\PublicProjectController;
 use App\Http\Controllers\PublicQuoteController;
+use App\Http\Controllers\PublicHomeController;
+
 
 Route::get(
     '/admin/login',
@@ -257,3 +259,8 @@ Route::get(
     '/cotizar/gracias/{quoteRequest:folio}',
     [PublicQuoteController::class, 'thanks']
 )->name('public.quote.thanks');
+
+Route::get(
+    '/',
+    [PublicHomeController::class, 'index']
+)->name('public.home');

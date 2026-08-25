@@ -929,3 +929,399 @@
         width: 100%;
     }
 }
+
+.home-hero {
+    position: relative;
+    display: grid;
+    min-height: 700px;
+    align-items: end;
+    overflow: hidden;
+    background: var(--deep);
+    color: var(--white);
+}
+
+.home-hero__media,
+.home-hero__overlay {
+    position: absolute;
+    inset: 0;
+}
+
+.home-hero__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.home-hero__overlay {
+    background: linear-gradient(
+        90deg,
+        rgba(11, 23, 31, .95) 0%,
+        rgba(11, 23, 31, .76) 48%,
+        rgba(11, 23, 31, .32) 100%
+    );
+}
+
+.home-hero__content {
+    position: relative;
+    z-index: 1;
+    padding: 110px 0 65px;
+}
+
+.home-hero h1 {
+    max-width: 900px;
+    margin: 14px 0 20px;
+    color: #fff;
+    font-family: Georgia, serif;
+    font-size: clamp(50px, 6vw, 84px);
+    font-weight: 500;
+    line-height: .97;
+}
+
+.home-hero p {
+    max-width: 680px;
+    color: rgba(255,255,255,.78);
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.home-hero__actions {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    margin-top: 28px;
+}
+
+.home-secondary-link {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 850;
+    text-decoration: none;
+}
+
+.home-editorial-grid {
+    display: grid;
+    grid-template-columns: .9fr 1.1fr;
+    gap: 75px;
+}
+
+.home-editorial-grid h2,
+.home-section-heading h2,
+.home-final-cta h2 {
+    margin: 10px 0 0;
+    font-family: Georgia, serif;
+    font-size: clamp(34px, 4.5vw, 56px);
+    font-weight: 500;
+    line-height: 1.03;
+}
+
+.home-intro__copy p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.85;
+}
+
+.home-intro__copy p + p {
+    margin-top: 18px;
+}
+
+.home-section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 40px;
+    margin-bottom: 36px;
+}
+
+.home-section-heading--dark h2 {
+    color: #fff;
+}
+
+.home-service-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.home-service-card {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #fff;
+}
+
+.home-service-card__media {
+    display: grid;
+    aspect-ratio: 16 / 9;
+    place-items: center;
+    overflow: hidden;
+    background: var(--graphite);
+    color: rgba(255,255,255,.15);
+    text-decoration: none;
+}
+
+.home-service-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.home-service-card__body {
+    padding: 22px;
+}
+
+.home-service-card h3,
+.home-project-card h3,
+.home-process-grid h3 {
+    font-family: Georgia, serif;
+    font-weight: 500;
+}
+
+.home-service-card h3 {
+    margin: 9px 0;
+    font-size: 23px;
+}
+
+.home-service-card h3 a,
+.home-project-card h3 a {
+    text-decoration: none;
+}
+
+.home-service-card p,
+.home-process-grid p {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.65;
+}
+
+.home-process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.home-process-grid article {
+    min-height: 230px;
+    padding: 26px 22px;
+}
+
+.home-process-grid article + article {
+    border-left: 1px solid var(--border);
+}
+
+.home-process-grid article > span {
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.home-process-grid h3 {
+    margin: 42px 0 8px;
+    font-size: 22px;
+}
+
+.home-project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 16px;
+}
+
+.home-project-card {
+    background: #101d25;
+}
+
+.home-project-card--large {
+    grid-column: 1 / -1;
+}
+
+.home-project-card__media {
+    display: grid;
+    aspect-ratio: 16 / 9;
+    place-items: center;
+    overflow: hidden;
+    background: #0d171e;
+    color: rgba(255,255,255,.12);
+    text-decoration: none;
+}
+
+.home-project-card--large .home-project-card__media {
+    aspect-ratio: 21 / 8;
+}
+
+.home-project-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.home-project-card__body {
+    padding: 22px;
+}
+
+.home-project-card h3 {
+    margin: 0 0 8px;
+    font-size: 27px;
+}
+
+.home-project-card h3 a {
+    color: #fff;
+}
+
+.home-project-card p {
+    margin: 0;
+    color: rgba(255,255,255,.62);
+    font-size: 12px;
+    line-height: 1.65;
+}
+
+.home-final-cta {
+    padding: 75px 0;
+    background: var(--graphite);
+    color: #fff;
+}
+
+.home-final-cta__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+.home-final-cta h2 {
+    color: #fff;
+}
+
+.home-final-cta p {
+    max-width: 590px;
+    color: rgba(255,255,255,.65);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+    .home-service-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+
+    .home-process-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+
+    .home-editorial-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 700px) {
+    .home-hero {
+        min-height: 620px;
+    }
+
+    .home-hero__actions,
+    .home-section-heading,
+    .home-final-cta__inner {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .home-service-grid,
+    .home-process-grid,
+    .home-project-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .home-project-card--large {
+        grid-column: auto;
+    }
+
+    .home-process-grid article + article {
+        border-top: 1px solid var(--border);
+        border-left: 0;
+    }
+}
+
+/* =========================================================
+   AJUSTES FINALES - INICIO
+   1. Encuadre de proyecto destacado
+   2. Contraste del CTA final
+   ========================================================= */
+
+/* Proyecto destacado: mostrar mejor la fotografía */
+.home-project-card--large .home-project-card__media {
+    aspect-ratio: 16 / 7;
+    min-height: 480px;
+}
+
+.home-project-card--large .home-project-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 68%;
+}
+
+/* CTA final: recuperar fondo oscuro y contraste */
+.home-final-cta {
+    background: #1f2937 !important;
+    color: #ffffff !important;
+}
+
+.home-final-cta h2 {
+    color: #ffffff !important;
+}
+
+.home-final-cta p {
+    color: rgba(255, 255, 255, 0.78) !important;
+}
+
+.home-final-cta .eyebrow {
+    color: #d4af37 !important;
+}
+
+/* Proyecto destacado de Inicio:
+   conservar la proporción completa de la fotografía */
+
+.home-project-card--large .home-project-card__media {
+    aspect-ratio: auto !important;
+    min-height: 0 !important;
+    height: auto !important;
+}
+
+.home-project-card--large .home-project-card__media img {
+    position: static !important;
+    display: block;
+    width: 100%;
+    height: auto !important;
+    max-height: none !important;
+    object-fit: contain !important;
+    object-position: center !important;
+}
+
+/* Proyecto destacado de Inicio:
+   marco controlado + fotografía completa */
+
+.home-project-card--large .home-project-card__media {
+    width: 100%;
+    height: 440px !important;
+    min-height: 0 !important;
+    aspect-ratio: auto !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+    background: #e9e7e1;
+}
+
+.home-project-card--large .home-project-card__media img {
+    position: static !important;
+
+    width: 100%;
+    height: 100% !important;
+
+    object-fit: contain !important;
+    object-position: center !important;
+
+    display: block;
+}
