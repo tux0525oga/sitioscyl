@@ -1325,3 +1325,267 @@
 
     display: block;
 }
+
+.contact-hero {
+    padding: 95px 0 88px;
+    background: linear-gradient(135deg, var(--deep), #334653);
+    color: var(--white);
+}
+
+.contact-hero h1,
+.contact-intro h2,
+.contact-options__heading h2,
+.contact-final-cta h2 {
+    max-width: 780px;
+    margin: 12px 0 18px;
+    font-family: Georgia, serif;
+    font-size: clamp(40px, 5vw, 66px);
+    font-weight: 500;
+    line-height: 1;
+}
+
+.contact-hero p {
+    max-width: 650px;
+    color: rgba(255,255,255,.72);
+    font-size: 16px;
+    line-height: 1.75;
+}
+
+.contact-layout {
+    display: grid;
+    grid-template-columns: .85fr 1.15fr;
+    gap: 70px;
+    align-items: start;
+}
+
+.contact-intro {
+    position: sticky;
+    top: 115px;
+}
+
+.contact-intro h2 {
+    font-size: clamp(34px, 4vw, 50px);
+}
+
+.contact-intro > p {
+    max-width: 520px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.contact-card-list {
+    display: grid;
+    gap: 12px;
+}
+
+.contact-card {
+    display: grid;
+    grid-template-columns: 48px minmax(0,1fr);
+    gap: 20px;
+    padding: 26px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--white);
+}
+
+.contact-card__number {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    place-items: center;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.contact-card__label {
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: .12em;
+}
+
+.contact-card h3 {
+    margin: 7px 0 12px;
+    overflow-wrap: anywhere;
+    font-family: Georgia, serif;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.25;
+}
+
+.contact-empty {
+    padding: 30px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--white);
+}
+
+.contact-empty strong {
+    font-family: Georgia, serif;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.contact-empty p {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.contact-options {
+    padding: 85px 0;
+    background: #eef0ef;
+}
+
+.contact-options__heading {
+    margin-bottom: 38px;
+}
+
+.contact-option-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.contact-option-grid article {
+    min-height: 275px;
+    padding: 28px;
+}
+
+.contact-option-grid article + article {
+    border-left: 1px solid var(--border);
+}
+
+.contact-option-grid article > span {
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.contact-option-grid h3 {
+    margin: 42px 0 10px;
+    font-family: Georgia, serif;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.contact-option-grid p {
+    min-height: 62px;
+    margin: 0 0 18px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.contact-final-cta {
+    padding: 75px 0;
+    background: var(--graphite);
+    color: var(--white);
+}
+
+.contact-final-cta__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 55px;
+}
+
+.contact-final-cta h2 {
+    color: var(--white);
+}
+
+.contact-final-cta p {
+    max-width: 590px;
+    color: rgba(255,255,255,.7);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+    .contact-layout {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .contact-intro {
+        position: static;
+    }
+
+    .contact-option-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-option-grid article + article {
+        border-top: 1px solid var(--border);
+        border-left: 0;
+    }
+}
+
+@media (max-width: 700px) {
+    .contact-hero,
+    .contact-options {
+        padding: 65px 0;
+    }
+
+    .contact-final-cta__inner {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+/* =========================================================
+   AJUSTES VISUALES - CONTACTO + LOGOTIPO
+   ========================================================= */
+
+/* Hero de Contacto: fondo oscuro y texto legible */
+.contact-hero {
+    background:
+        linear-gradient(
+            135deg,
+            #14212b 0%,
+            #263946 55%,
+            #334653 100%
+        ) !important;
+
+    color: #ffffff !important;
+}
+
+.contact-hero h1 {
+    color: #ffffff !important;
+}
+
+.contact-hero p {
+    color: rgba(255, 255, 255, 0.82) !important;
+    font-size: 17px;
+    line-height: 1.75;
+}
+
+.contact-hero .eyebrow {
+    color: #d4af37 !important;
+}
+
+
+/* Monograma un poco más grande */
+.brand__mark {
+    width: 56px !important;
+    height: 56px !important;
+    flex: 0 0 56px;
+}
+
+.brand__mark-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain !important;
+}
+
+/* Un poco más de espacio para el logo en cabecera */
+.site-header__inner {
+    min-height: 92px;
+}

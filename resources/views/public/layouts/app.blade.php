@@ -24,7 +24,12 @@
                 </span>
             </a>
             <nav class="site-nav">
-                <a href="#" aria-disabled="true">Inicio</a>
+                <a href="#" aria-disabled="true"><a
+                                                    class="{{ request()->routeIs('public.home') ? 'is-active' : '' }}"
+                                                    href="{{ route('public.home') }}"
+                                                >
+                                                Inicio
+                                                </a></a>
                 <a class="{{ request()->routeIs('public.services.*') ? 'is-active' : '' }}" href="{{ route('public.services.index') }}">Servicios</a>
                 <a href="#" aria-disabled="true"><a
                                                     class="{{ request()->routeIs('public.projects.*') ? 'is-active' : '' }}"
@@ -38,7 +43,12 @@
                                                     >
                                                     Cotizar
                                                 </a></a>
-                <a href="#" aria-disabled="true">Contacto</a>
+                <a href="#" aria-disabled="true"><a
+                                                    class="{{ request()->routeIs('public.contact') ? 'is-active' : '' }}"
+                                                    href="{{ route('public.contact') }}"
+                                                    >
+                                                    Contacto
+                                                </a></a>
             </nav>
         </div>
     </header>

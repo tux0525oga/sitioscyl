@@ -15,6 +15,8 @@ use App\Http\Controllers\PublicServiceController;
 use App\Http\Controllers\PublicProjectController;
 use App\Http\Controllers\PublicQuoteController;
 use App\Http\Controllers\PublicHomeController;
+use App\Http\Controllers\PublicContactController;
+
 
 
 Route::get(
@@ -264,3 +266,8 @@ Route::get(
     '/',
     [PublicHomeController::class, 'index']
 )->name('public.home');
+
+Route::get(
+    '/contacto',
+    [PublicContactController::class, 'index']
+)->name('public.contact');
