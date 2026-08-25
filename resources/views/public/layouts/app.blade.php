@@ -11,7 +11,13 @@
     <header class="site-header">
         <div class="site-shell site-header__inner">
             <a class="brand" href="/">
-                <span class="brand__mark">SC</span>
+                <span class="brand__mark">
+                    <img
+                        class="brand__mark-image"
+                        src="{{ asset('images/brand/sc-monograma.png') }}"
+                        alt="Monograma Somos Constructivos"
+                    >
+                </span>
                 <span>
                     <strong>SOMOS CONSTRUCTIVOS</strong>
                     <small>{{ $companyProfile?->slogan ?: 'Tu proyecto, nuestro compromiso!' }}</small>
@@ -20,7 +26,12 @@
             <nav class="site-nav">
                 <a href="#" aria-disabled="true">Inicio</a>
                 <a class="{{ request()->routeIs('public.services.*') ? 'is-active' : '' }}" href="{{ route('public.services.index') }}">Servicios</a>
-                <a href="#" aria-disabled="true">Proyectos</a>
+                <a href="#" aria-disabled="true"><a
+                                                    class="{{ request()->routeIs('public.projects.*') ? 'is-active' : '' }}"
+                                                    href="{{ route('public.projects.index') }}"
+                                                    >
+                                                    Proyectos
+                                                </a></a>
                 <a href="#" aria-disabled="true">Cotizar</a>
                 <a href="#" aria-disabled="true">Contacto</a>
             </nav>

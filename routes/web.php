@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\AdminServiceController;
 use App\Http\Controllers\Admin\AdminServiceContentController;
 use App\Http\Controllers\Admin\AdminServiceMediaController;
 use App\Http\Controllers\PublicServiceController;
+use App\Http\Controllers\PublicProjectController;
 
 Route::get(
     '/admin/login',
@@ -228,3 +229,13 @@ Route::get(
     '/servicios/{service:slug}',
     [PublicServiceController::class, 'show']
 )->name('public.services.show');
+
+Route::get(
+    '/proyectos',
+    [PublicProjectController::class, 'index']
+)->name('public.projects.index');
+
+Route::get(
+    '/proyectos/{project:slug}',
+    [PublicProjectController::class, 'show']
+)->name('public.projects.show');
