@@ -7,6 +7,10 @@
     <meta name="description" content="@yield('metaDescription', 'Soluciones constructivas para proyectos residenciales.')">
     <link rel="stylesheet" href="{{ asset('css/site.css') }}">
 </head>
+<script
+    src="{{ asset('js/public-navigation.js') }}"
+    defer
+></script>
 <body>
     <header class="site-header">
         <div class="site-shell site-header__inner">
@@ -23,7 +27,21 @@
                     <small>{{ $companyProfile?->slogan ?: 'Tu proyecto, nuestro compromiso!' }}</small>
                 </span>
             </a>
-            <nav class="site-nav">
+            <button
+                class="site-menu-toggle"
+                type="button"
+                aria-label="Abrir menú"
+                aria-expanded="false"
+                aria-controls="siteNavigation"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav
+                id="siteNavigation"
+                class="site-nav"
+            >
                 <a href="#" aria-disabled="true"><a
                                                     class="{{ request()->routeIs('public.home') ? 'is-active' : '' }}"
                                                     href="{{ route('public.home') }}"
