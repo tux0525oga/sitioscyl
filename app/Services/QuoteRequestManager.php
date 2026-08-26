@@ -11,6 +11,7 @@ use App\Models\QuoteStatusHistory;
 use App\Models\Service;
 use App\Models\UserAccount;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use InvalidArgumentException;
 
 class QuoteRequestManager
@@ -37,12 +38,8 @@ class QuoteRequestManager
                 ->where('isActive', true)
                 ->firstOrFail();
 
-            $validatedServiceIds = $this->validateServiceIds(
-                $serviceIds
-            );
-
-            $folio = $this->folioService
-                ->nextQuoteFolioWithinTransaction();
+            $validatedServiceIds = $this->validateServiceIds($serviceIds);
+            $folio = $this->folioService->nextQuoteFolioWithinTransaction();
 
             $quoteRequest = QuoteRequest::create([
                 'folio' => $folio,
@@ -162,54 +159,14 @@ class QuoteRequestManager
 
     private function resolveContact(array $contactData): Contact
     {
-        $contact = null;
-
-        if (!empty($contactData['contactId'])) {
-            $contact = Contact::query()->find(
-                $contactData['contactId']
-            );
-        }
-
-        if (
-            $contact === null &&
-            !empty($contactData['email'])
-        ) {
-            $contact = Contact::query()
-                ->where('email', $contactData['email'])
-                ->first();
-        }
-
-        if (
-            $contact === null &&
-            !empty($contactData['whatsAppNumber'])
-        ) {
-            $contact = Contact::query()
-                ->where(
-                    'whatsAppNumber',
-                    $contactData['whatsAppNumber']
-                )
-                ->first();
-        }
-
-        if (
-            $contact === null &&
-            !empty($contactData['phoneNumber'])
-        ) {
-            $contact = Contact::query()
-                ->where(
-                    'phoneNumber',
-                    $contactData['phoneNumber']
-                )
-                ->first();
-        }
-
         $attributes = [
-            'firstName' => $contactData['firstName'] ?? null,
-            'lastName' => $contactData['lastName'] ?? null,
-            'phoneNumber' => $contactData['phoneNumber'] ?? null,
-            'whatsAppNumber' => $contactData['whatsAppNumber'] ?? null,
-            'email' => $contactData['email'] ?? null,
-            'preferredContactMethodId' => $contactData['preferredContactMethodId'] ?? null,
+            'firstName' => $this->cleanText($contactData['firstName'] ?? null),
+            'lastName' => $this->cleanText($contactData['lastName'] ?? null),
+            'phoneNumber' => $this->cleanText($contactData['phoneNumber'] ?? null),
+            'whatsAppNumber' => $this->cleanText($contactData['whatsAppNumber'] ?? null),
+            'email' => $this->cleanEmail($contactData['email'] ?? null),
+            'preferredContactMethodId' =>
+                $contactData['preferredContactMethodId'] ?? null,
         ];
 
         $attributes = array_filter(
@@ -218,6 +175,25 @@ class QuoteRequestManager
                 $value !== null && $value !== ''
         );
 
+        if (empty($attributes['firstName'])) {
+            throw new InvalidArgumentException(
+                'El nombre del contacto es obligatorio.'
+            );
+        }
+
+        if (!empty($contactData['contactId'])) {
+            $contact = Contact::query()->find($contactData['contactId']);
+
+            if ($contact !== null) {
+                $contact->fill($attributes);
+                $contact->save();
+
+                return $contact;
+            }
+        }
+
+        $contact = $this->findMatchingContact($attributes);
+
         if ($contact !== null) {
             $contact->fill($attributes);
             $contact->save();
@@ -225,13 +201,100 @@ class QuoteRequestManager
             return $contact;
         }
 
-        if (empty($attributes['firstName'])) {
-            throw new InvalidArgumentException(
-                'El nombre del contacto es obligatorio.'
-            );
+        return Contact::create($attributes);
+    }
+
+    private function findMatchingContact(array $attributes): ?Contact
+    {
+        $email = $attributes['email'] ?? null;
+        $whatsAppNumber = $attributes['whatsAppNumber'] ?? null;
+        $phoneNumber = $attributes['phoneNumber'] ?? null;
+
+        if (
+            $email === null
+            && $whatsAppNumber === null
+            && $phoneNumber === null
+        ) {
+            return null;
         }
 
-        return Contact::create($attributes);
+        $candidates = Contact::query()
+            ->where(function ($query) use (
+                $email,
+                $whatsAppNumber,
+                $phoneNumber
+            ): void {
+                $hasCondition = false;
+
+                if ($email !== null) {
+                    $query->where('email', $email);
+                    $hasCondition = true;
+                }
+
+                if ($whatsAppNumber !== null) {
+                    if ($hasCondition) {
+                        $query->orWhere('whatsAppNumber', $whatsAppNumber);
+                    } else {
+                        $query->where('whatsAppNumber', $whatsAppNumber);
+                        $hasCondition = true;
+                    }
+                }
+
+                if ($phoneNumber !== null) {
+                    if ($hasCondition) {
+                        $query->orWhere('phoneNumber', $phoneNumber);
+                    } else {
+                        $query->where('phoneNumber', $phoneNumber);
+                    }
+                }
+            })
+            ->get();
+
+        return $candidates->first(
+            fn (Contact $candidate): bool =>
+                $this->contactNamesMatch($candidate, $attributes)
+        );
+    }
+
+    private function contactNamesMatch(
+        Contact $contact,
+        array $attributes
+    ): bool {
+        return $this->normalizeName($contact->firstName)
+            === $this->normalizeName($attributes['firstName'] ?? null)
+            && $this->normalizeName($contact->lastName)
+            === $this->normalizeName($attributes['lastName'] ?? null);
+    }
+
+    private function normalizeName(?string $value): string
+    {
+        if ($value === null) {
+            return '';
+        }
+
+        $value = preg_replace('/\s+/u', ' ', trim($value));
+
+        return Str::lower(Str::ascii($value ?? ''));
+    }
+
+    private function cleanText(mixed $value): ?string
+    {
+        if ($value === null) {
+            return null;
+        }
+
+        $value = trim((string) $value);
+
+        return $value !== '' ? $value : null;
+    }
+
+    private function cleanEmail(mixed $value): ?string
+    {
+        $value = $this->cleanText($value);
+
+        return $value !== null
+            ? Str::lower($value)
+            : null;
     }
 
     private function validateServiceIds(array $serviceIds): array
