@@ -1212,3 +1212,63 @@ a { color: inherit; }
         grid-template-columns: 1fr;
     }
 }
+
+/* =========================================================
+   ADMIN - SELECTOR DE ARCHIVOS CORPORATIVO
+   ========================================================= */
+
+.admin-field input[type="file"] {
+    width: 100%;
+    min-height: 54px;
+    padding: 7px;
+
+    border: 1.5px solid #cfd6dc;
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #5f6b74;
+
+    font-size: 13px;
+    cursor: pointer;
+}
+
+/* Botón interno "Elegir archivo" */
+.admin-field input[type="file"]::file-selector-button {
+    min-height: 38px;
+
+    margin-right: 14px;
+    padding: 0 18px;
+
+    border: 1px solid #14212b;
+    border-radius: 7px;
+
+    background: #14212b;
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        background 160ms ease,
+        border-color 160ms ease,
+        color 160ms ease;
+}
+
+.admin-field input[type="file"]::file-selector-button:hover {
+    border-color: #d4af37;
+
+    background: #d4af37;
+    color: #14212b;
+}
+
+.admin-field input[type="file"]:focus {
+    border-color: #d4af37;
+
+    box-shadow:
+        0 0 0 4px rgba(212, 175, 55, 0.13);
+
+    outline: none;
+}
