@@ -19,7 +19,7 @@
                 <p class="admin-nav__label">Administración</p>
                 <a class="admin-nav__link {{ request()->routeIs('admin.dashboard') ? 'is-active' : '' }}" href="{{ route('admin.dashboard') }}">Dashboard</a>
                 <a class="admin-nav__link {{ request()->routeIs('admin.quotes.*') ? 'is-active' : '' }}" href="{{ route('admin.quotes.index') }}">Cotizaciones</a>
-                <p class="admin-nav__label">Próximos módulos</p>
+                <p class="admin-nav__label">Contenido</p>
                 <span class="admin-nav__link"><a
                                                     class="admin-nav__link {{ request()->routeIs('admin.projects.*') ? 'is-active' : '' }}"
                                                     href="{{ route('admin.projects.index') }}"
@@ -33,7 +33,13 @@
                                                 Servicios
                                                 </a></span>
                 <span class="admin-nav__link">Multimedia</span>
-                <span class="admin-nav__link">Configuración</span>
+                <span class="admin-nav__link"><a
+                                                    class="admin-nav__link {{
+                                                    request()->routeIs('admin.configuration.*') ? 'is-active' : '' }}"
+                                                    href="{{ route('admin.configuration.edit') }}"
+                                                >
+                                                Configuración
+                                                </a></span>
             </nav>
             <div class="admin-sidebar__footer">
                 <div class="admin-user">

@@ -17,6 +17,7 @@ use App\Http\Controllers\PublicQuoteController;
 use App\Http\Controllers\PublicHomeController;
 use App\Http\Controllers\PublicContactController;
 use App\Http\Controllers\Admin\AdminCompanyProfileController;
+use App\Http\Controllers\Admin\AdminMediaController;
 
 
 
@@ -235,6 +236,11 @@ Route::middleware([
             '/configuration',
             [AdminCompanyProfileController::class, 'update']
         )->name('configuration.update');
+
+        Route::get(
+            '/media',
+            [AdminMediaController::class, 'index']
+        )->name('media.index');
     });
 Route::get(
     '/servicios',
