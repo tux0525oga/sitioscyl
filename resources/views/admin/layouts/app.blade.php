@@ -32,7 +32,12 @@
                                                 >
                                                 Servicios
                                                 </a></span>
-                <span class="admin-nav__link">Multimedia</span>
+                <span class="admin-nav__link"><a
+                                                    class="admin-nav__link {{ request()->routeIs('admin.media.*')? 'is-active' : '' }}"
+                                                    href="{{ route('admin.media.index') }}"
+                                                >
+                                                Multimedia
+                                                </a></span>
                 <span class="admin-nav__link"><a
                                                     class="admin-nav__link {{
                                                     request()->routeIs('admin.configuration.*') ? 'is-active' : '' }}"
