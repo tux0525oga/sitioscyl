@@ -16,6 +16,7 @@ use App\Http\Controllers\PublicProjectController;
 use App\Http\Controllers\PublicQuoteController;
 use App\Http\Controllers\PublicHomeController;
 use App\Http\Controllers\PublicContactController;
+use App\Http\Controllers\Admin\AdminCompanyProfileController;
 
 
 
@@ -224,6 +225,16 @@ Route::middleware([
                 'download',
             ]
         )->name('quoteFiles.download');
+
+        Route::get(
+            '/configuration',
+            [AdminCompanyProfileController::class, 'edit']
+        )->name('configuration.edit');
+
+        Route::put(
+            '/configuration',
+            [AdminCompanyProfileController::class, 'update']
+        )->name('configuration.update');
     });
 Route::get(
     '/servicios',
@@ -234,6 +245,8 @@ Route::get(
     '/servicios/{service:slug}',
     [PublicServiceController::class, 'show']
 )->name('public.services.show');
+
+
 
 Route::get(
     '/proyectos',

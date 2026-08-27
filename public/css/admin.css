@@ -837,3 +837,378 @@ a { color: inherit; }
         grid-template-columns: 1fr;
     }
 }
+
+/* =========================================================
+   ADMIN - CONFIGURACIÓN DE EMPRESA
+   ========================================================= */
+
+.admin-page {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 38px 42px 60px;
+}
+
+.admin-page__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 28px;
+}
+
+.admin-page__header h1 {
+    margin: 7px 0 8px;
+    color: #14212b;
+    font-size: 34px;
+    line-height: 1.1;
+}
+
+.admin-page__header p {
+    margin: 0;
+    color: #68747d;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* Etiquetas superiores */
+.admin-eyebrow {
+    display: block;
+    margin-bottom: 7px;
+
+    color: #d4af37;
+
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.13em;
+}
+
+
+/* Formulario completo */
+.admin-form {
+    display: grid;
+    gap: 24px;
+}
+
+
+/* Tarjetas */
+.admin-panel {
+    overflow: hidden;
+
+    padding: 30px;
+
+    border: 1px solid #dfe3e5;
+    border-radius: 14px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.admin-panel__heading {
+    margin-bottom: 26px;
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid #e4e7e9;
+}
+
+.admin-panel__heading h2 {
+    margin: 5px 0 6px;
+
+    color: #14212b;
+
+    font-size: 23px;
+    line-height: 1.2;
+}
+
+.admin-panel__heading p {
+    margin: 0;
+
+    color: #68747d;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* Grid del formulario */
+.admin-form-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 22px;
+}
+
+.admin-field {
+    min-width: 0;
+}
+
+.admin-field--wide {
+    grid-column: 1 / -1;
+}
+
+
+/* Labels */
+.admin-field label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #14212b;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+
+/* Inputs */
+.admin-field input,
+.admin-field textarea,
+.admin-field select {
+    width: 100%;
+
+    border: 1.5px solid #cfd6dc;
+    border-radius: 9px;
+
+    background: #ffffff;
+    color: #14212b;
+
+    outline: none;
+
+    font: inherit;
+
+    transition:
+        border-color 160ms ease,
+        box-shadow 160ms ease,
+        background 160ms ease;
+}
+
+.admin-field input,
+.admin-field select {
+    min-height: 48px;
+    padding: 0 14px;
+}
+
+.admin-field textarea {
+    min-height: 110px;
+    padding: 13px 14px;
+
+    line-height: 1.6;
+
+    resize: vertical;
+}
+
+.admin-field input:focus,
+.admin-field textarea:focus,
+.admin-field select:focus {
+    border-color: #d4af37;
+
+    background: #fffefb;
+
+    box-shadow:
+        0 0 0 4px rgba(212, 175, 55, 0.13);
+}
+
+
+/* Botón */
+.admin-form__actions {
+    display: flex;
+    justify-content: flex-end;
+
+    padding-top: 4px;
+}
+
+.admin-button {
+    display: inline-flex;
+
+    min-height: 48px;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 24px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+    font-weight: 900;
+
+    text-decoration: none;
+
+    transition:
+        background 160ms ease,
+        border-color 160ms ease,
+        transform 160ms ease;
+}
+
+.admin-button--primary {
+    border: 1px solid #d4af37;
+
+    background: #d4af37;
+    color: #14212b;
+}
+
+.admin-button--primary:hover {
+    border-color: #c7a12d;
+
+    background: #c7a12d;
+
+    transform: translateY(-1px);
+}
+
+
+/* Mensajes */
+.admin-alert {
+    margin-bottom: 24px;
+    padding: 16px 18px;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.admin-alert--success {
+    border: 1px solid #a8c7b3;
+
+    background: #f1faf4;
+    color: #245636;
+}
+
+.admin-alert--error {
+    border: 1px solid #d8a8a5;
+
+    background: #fff4f3;
+    color: #8b3430;
+}
+
+.admin-alert ul {
+    margin: 8px 0 0;
+    padding-left: 20px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .admin-page {
+        padding:
+            28px 24px
+            45px;
+    }
+
+    .admin-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-field--wide {
+        grid-column: auto;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .admin-page {
+        padding:
+            22px 16px
+            40px;
+    }
+
+    .admin-panel {
+        padding: 22px 18px;
+    }
+
+    .admin-page__header h1 {
+        font-size: 29px;
+    }
+
+    .admin-form__actions {
+        display: block;
+    }
+
+    .admin-button {
+        width: 100%;
+    }
+}
+
+/* =========================================================
+   ADMIN - IDENTIDAD VISUAL
+   ========================================================= */
+
+.admin-identity-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.admin-identity-card {
+    padding: 22px;
+    border: 1px solid #dfe3e5;
+    border-radius: 12px;
+    background: #fafaf8;
+}
+
+.admin-identity-preview {
+    display: flex;
+    min-height: 210px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 22px;
+    padding: 22px;
+    border: 1px solid #dfe3e5;
+    border-radius: 10px;
+    background: #14212b;
+}
+
+.admin-identity-preview--logo {
+    background: #f1f1ed;
+}
+
+.admin-identity-preview img {
+    display: block;
+    max-width: 100%;
+    max-height: 165px;
+    object-fit: contain;
+}
+
+.admin-identity-preview span {
+    color: #68747d;
+    font-size: 12px;
+}
+
+.admin-identity-preview:not(
+    .admin-identity-preview--logo
+) span {
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.admin-field input[type="file"] {
+    min-height: auto;
+    padding: 12px;
+    background: #ffffff;
+}
+
+.admin-field__hint {
+    display: block;
+    margin-top: 8px;
+    color: #68747d;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+    .admin-identity-grid {
+        grid-template-columns: 1fr;
+    }
+}

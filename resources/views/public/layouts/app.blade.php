@@ -16,10 +16,13 @@
         <div class="site-shell site-header__inner">
             <a class="brand" href="/">
                 <span class="brand__mark">
-                    <img
+                  <img
                         class="brand__mark-image"
-                        src="{{ asset('images/brand/sc-monograma.png') }}"
-                        alt="Monograma Somos Constructivos"
+                        src="{{ $companyMonogramUrl }}"
+                        alt="Monograma {{
+                            $companyProfile?->companyName
+                            ?: 'Somos Constructivos'
+                        }}"
                     >
                 </span>
                 <span>
@@ -38,36 +41,45 @@
                 <span></span>
                 <span></span>
             </button>
-            <nav
+        <nav
                 id="siteNavigation"
                 class="site-nav"
             >
-                <a href="#" aria-disabled="true"><a
-                                                    class="{{ request()->routeIs('public.home') ? 'is-active' : '' }}"
-                                                    href="{{ route('public.home') }}"
-                                                >
-                                                Inicio
-                                                </a></a>
-                <a class="{{ request()->routeIs('public.services.*') ? 'is-active' : '' }}" href="{{ route('public.services.index') }}">Servicios</a>
-                <a href="#" aria-disabled="true"><a
-                                                    class="{{ request()->routeIs('public.projects.*') ? 'is-active' : '' }}"
-                                                    href="{{ route('public.projects.index') }}"
-                                                    >
-                                                    Proyectos
-                                                </a></a>
-                <a href="#" aria-disabled="true"><a
-                                                    class="{{ request()->routeIs('public.quote.*') ? 'is-active' : '' }}"
-                                                    href="{{ route('public.quote.create') }}"
-                                                    >
-                                                    Cotizar
-                                                </a></a>
-                <a href="#" aria-disabled="true"><a
-                                                    class="{{ request()->routeIs('public.contact') ? 'is-active' : '' }}"
-                                                    href="{{ route('public.contact') }}"
-                                                    >
-                                                    Contacto
-                                                </a></a>
-            </nav>
+            <a
+                class="{{ request()->routeIs('public.home') ? 'is-active' : '' }}"
+                href="{{ route('public.home') }}"
+            >
+            Inicio
+            </a>
+
+            <a
+                class="{{ request()->routeIs('public.services.*') ? 'is-active' : '' }}"
+                href="{{ route('public.services.index') }}"
+            >
+            Servicios
+            </a>
+
+            <a
+                class="{{ request()->routeIs('public.projects.*') ? 'is-active' : '' }}"
+                href="{{ route('public.projects.index') }}"
+            >
+            Proyectos
+            </a>
+
+            <a
+                class="{{ request()->routeIs('public.quote.*') ? 'is-active' : '' }}"
+                href="{{ route('public.quote.create') }}"
+            >
+            Cotizar
+            </a>
+
+            <a
+                class="{{ request()->routeIs('public.contact') ? 'is-active' : '' }}"
+                href="{{ route('public.contact') }}"
+            >
+            Contacto
+            </a>
+    </nav>
         </div>
     </header>
     <main>@yield('content')</main>
