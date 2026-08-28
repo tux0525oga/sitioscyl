@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
+use App\Models\MediaAsset;
 use App\Models\MediaCategory;
 
 class AdminProjectController extends Controller
@@ -56,8 +57,17 @@ class AdminProjectController extends Controller
         $project = DB::transaction(function () use ($validated): Project {
             $project = Project::create($this->projectAttributes($validated));
 
-            $this->replaceServiceLinks($project, $validated['serviceIds'] ?? []);
-            $this->replaceTagLinks($project, $validated['tagIds'] ?? []);
+            $this->replaceServiceLinks(
+                $project,
+                $validated['serviceIds'] ?? []
+            );
+
+            $this->replaceTagLinks(
+                $project,
+                $validated['tagIds'] ?? []
+            );
+
+            $this->saveSeo($project, $validated);
 
             return $project;
         }, 3);
@@ -69,7 +79,15 @@ class AdminProjectController extends Controller
 
     public function edit(Project $project): View
     {
-        $project->load(['serviceLinks', 'tagLinks','mediaLinks.mediaAsset','mediaLinks.mediaCategory','comparisons.beforeImage','comparisons.afterImage',]);
+        $project->load([
+            'seo',
+            'serviceLinks',
+            'tagLinks',
+            'mediaLinks.mediaAsset',
+            'mediaLinks.mediaCategory',
+            'comparisons.beforeImage',
+            'comparisons.afterImage',
+        ]);
 
         return view('admin.projects.edit', array_merge(
             $this->formOptions(),
@@ -87,8 +105,17 @@ class AdminProjectController extends Controller
             $project->fill($this->projectAttributes($validated, $project));
             $project->save();
 
-            $this->replaceServiceLinks($project, $validated['serviceIds'] ?? []);
-            $this->replaceTagLinks($project, $validated['tagIds'] ?? []);
+            $this->replaceServiceLinks(
+                $project,
+                $validated['serviceIds'] ?? []
+            );
+
+            $this->replaceTagLinks(
+                $project,
+                $validated['tagIds'] ?? []
+            );
+
+            $this->saveSeo($project, $validated);
         }, 3);
 
         return redirect()
@@ -141,6 +168,26 @@ class AdminProjectController extends Controller
                 'distinct',
                 Rule::exists('tag', 'tagId'),
             ],
+
+            'seo' => ['nullable', 'array'],
+            'seo.metaTitle' => ['nullable', 'string', 'max:180'],
+            'seo.metaDescription' => ['nullable', 'string', 'max:320'],
+            'seo.canonicalUrl' => ['nullable', 'string', 'max:500'],
+            'seo.socialTitle' => ['nullable', 'string', 'max:180'],
+            'seo.socialDescription' => ['nullable', 'string', 'max:320'],
+            'seo.socialImageId' => [
+                'nullable',
+                'string',
+                Rule::exists('mediaasset', 'mediaId')
+                    ->where(function ($query): void {
+                        $query
+                            ->where('isPublic', true)
+                            ->where('isPublished', true)
+                            ->where('mimeType', 'like', 'image/%');
+                    }),
+            ],
+            'seo.robotsIndex' => ['nullable', 'boolean'],
+            'seo.robotsFollow' => ['nullable', 'boolean'],
         ]);
     }
 
@@ -257,6 +304,60 @@ class AdminProjectController extends Controller
                 ->orderBy('name')
                 ->get(),
 
+            'seoMediaAssets' => MediaAsset::query()
+                ->where('isPublic', true)
+                ->where('isPublished', true)
+                ->where('mimeType', 'like', 'image/%')
+                ->orderByDesc('createdAt')
+                ->get(),
         ];
+    }
+
+    private function saveSeo(
+        Project $project,
+        array $validated
+    ): void {
+        $seo = $validated['seo'] ?? [];
+
+        $project->seo()->updateOrCreate(
+            [
+                'projectId' => $project->projectId,
+            ],
+            [
+                'metaTitle' => $this->nullableTrim(
+                    $seo['metaTitle'] ?? null
+                ),
+                'metaDescription' => $this->nullableTrim(
+                    $seo['metaDescription'] ?? null
+                ),
+                'canonicalUrl' => $this->nullableTrim(
+                    $seo['canonicalUrl'] ?? null
+                ),
+                'socialTitle' => $this->nullableTrim(
+                    $seo['socialTitle'] ?? null
+                ),
+                'socialDescription' => $this->nullableTrim(
+                    $seo['socialDescription'] ?? null
+                ),
+                'socialImageId' => $this->nullableTrim(
+                    $seo['socialImageId'] ?? null
+                ),
+                'robotsIndex' => (bool) (
+                    $seo['robotsIndex'] ?? true
+                ),
+                'robotsFollow' => (bool) (
+                    $seo['robotsFollow'] ?? true
+                ),
+            ]
+        );
+    }
+
+    private function nullableTrim(mixed $value): ?string
+    {
+        $value = trim((string) $value);
+
+        return $value !== ''
+            ? $value
+            : null;
     }
 }

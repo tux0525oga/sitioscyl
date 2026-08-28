@@ -1,14 +1,59 @@
 @extends('public.layouts.app')
 
-@section('title', ($service->heroTitle ?: $service->name) . ' | Somos Constructivos')
-@section('metaDescription', $service->shortDescription ?: 'Servicio de Somos Constructivos.')
-
-@section('content')
 @php
+    $seoTitle = $seo?->metaTitle
+        ?: (($service->heroTitle ?: $service->name) . ' | Somos Constructivos');
+
+    $seoDescription = $seo?->metaDescription
+        ?: ($service->shortDescription ?: 'Servicio de Somos Constructivos.');
+
+    $canonicalUrl = $seo?->canonicalUrl
+        ?: url()->current();
+
+    $robotsIndex = $seo?->robotsIndex ?? true;
+    $robotsFollow = $seo?->robotsFollow ?? true;
+
+    $robots = ($robotsIndex ? 'index' : 'noindex')
+        . ','
+        . ($robotsFollow ? 'follow' : 'nofollow');
+
+    $socialTitle = $seo?->socialTitle
+        ?: $seoTitle;
+
+    $socialDescription = $seo?->socialDescription
+        ?: $seoDescription;
+
+    $socialImageAsset = $socialImage
+        ?: $featuredImage;
+
+    $socialImageUrl = $socialImageAsset
+        ? \Illuminate\Support\Facades\Storage::disk(
+            $socialImageAsset->storageDisk
+        )->url($socialImageAsset->storagePath)
+        : null;
+
     $heroUrl = $featuredImage
-        ? \Illuminate\Support\Facades\Storage::disk($featuredImage->storageDisk)->url($featuredImage->storagePath)
+        ? \Illuminate\Support\Facades\Storage::disk(
+            $featuredImage->storageDisk
+        )->url($featuredImage->storagePath)
         : null;
 @endphp
+
+@section('title', $seoTitle)
+@section('metaDescription', $seoDescription)
+@section('canonicalUrl', $canonicalUrl)
+@section('robots', $robots)
+@section('ogTitle', $socialTitle)
+@section('ogDescription', $socialDescription)
+@section('ogUrl', $canonicalUrl)
+@section('ogType', 'website')
+
+@if ($socialImageUrl)
+    @section('ogImage', $socialImageUrl)
+    @section('twitterCard', 'summary_large_image')
+@endif
+
+@section('content')
 <section class="service-hero" @if($heroUrl) style="background-image: linear-gradient(rgba(20,33,43,.78), rgba(20,33,43,.78)), url('{{ $heroUrl }}')" @endif>
     <div class="site-shell">
         <a class="back-link" href="{{ route('public.services.index') }}">← Todos los servicios</a>

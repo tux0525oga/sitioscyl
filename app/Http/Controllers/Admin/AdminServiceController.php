@@ -3,20 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Faq;
+use App\Models\MediaAsset;
+use App\Models\MediaCategory;
 use App\Models\Service;
+use App\Models\ServiceBenefit;
+use App\Models\ServiceFaq;
+use App\Models\ServiceMedia;
+use App\Models\ServiceSolution;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
-use App\Models\Faq;
-use App\Models\MediaAsset;
-use App\Models\MediaCategory;
-use App\Models\ServiceBenefit;
-use App\Models\ServiceFaq;
-use App\Models\ServiceMedia;
-use App\Models\ServiceSolution;
-
 
 class AdminServiceController extends Controller
 {
@@ -46,80 +45,103 @@ class AdminServiceController extends Controller
 
     public function create(): View
     {
-        return view('admin.services.create');
+        $seoMediaAssets = MediaAsset::query()
+            ->where('isPublic', true)
+            ->where('isPublished', true)
+            ->where('mimeType', 'like', 'image/%')
+            ->orderByDesc('createdAt')
+            ->get();
+
+        return view('admin.services.create', [
+            'seoMediaAssets' => $seoMediaAssets,
+        ]);
     }
 
     public function store(Request $request): RedirectResponse
     {
         $validated = $this->validateService($request);
-        $service = Service::create($this->attributes($validated));
+
+        $service = Service::create(
+            $this->attributes($validated)
+        );
+
+        $this->saveSeo($service, $validated);
 
         return redirect()
             ->route('admin.services.edit', $service)
             ->with('success', 'Servicio creado correctamente.');
     }
 
-public function edit(Service $service): View
-{
-    $serviceSolutions = ServiceSolution::query()
-        ->where('serviceId', $service->serviceId)
-        ->orderBy('displayOrder')
-        ->orderBy('name')
-        ->get();
+    public function edit(Service $service): View
+    {
+        $service->load('seo');
 
-    $serviceBenefits = ServiceBenefit::query()
-        ->where('serviceId', $service->serviceId)
-        ->orderBy('displayOrder')
-        ->orderBy('title')
-        ->get();
+        $serviceSolutions = ServiceSolution::query()
+            ->where('serviceId', $service->serviceId)
+            ->orderBy('displayOrder')
+            ->orderBy('name')
+            ->get();
 
-    $serviceFaqLinks = ServiceFaq::query()
-        ->where('serviceId', $service->serviceId)
-        ->orderBy('displayOrder')
-        ->get();
+        $serviceBenefits = ServiceBenefit::query()
+            ->where('serviceId', $service->serviceId)
+            ->orderBy('displayOrder')
+            ->orderBy('title')
+            ->get();
 
-    $serviceFaqMap = Faq::query()
-        ->whereIn(
-            'faqId',
-            $serviceFaqLinks->pluck('faqId')
-        )
-        ->get()
-        ->keyBy('faqId');
+        $serviceFaqLinks = ServiceFaq::query()
+            ->where('serviceId', $service->serviceId)
+            ->orderBy('displayOrder')
+            ->get();
 
-    $serviceMediaItems = ServiceMedia::query()
-        ->where('serviceId', $service->serviceId)
-        ->orderBy('displayOrder')
-        ->orderBy('createdAt')
-        ->get();
+        $serviceFaqMap = Faq::query()
+            ->whereIn(
+                'faqId',
+                $serviceFaqLinks->pluck('faqId')
+            )
+            ->get()
+            ->keyBy('faqId');
 
-    $serviceMediaMap = MediaAsset::query()
-        ->whereIn(
-            'mediaId',
-            $serviceMediaItems->pluck('mediaId')
-        )
-        ->get()
-        ->keyBy('mediaId');
+        $serviceMediaItems = ServiceMedia::query()
+            ->where('serviceId', $service->serviceId)
+            ->orderBy('displayOrder')
+            ->orderBy('createdAt')
+            ->get();
 
-    $mediaCategories = MediaCategory::query()
-        ->where('isActive', true)
-        ->orderBy('displayOrder')
-        ->orderBy('name')
-        ->get();
+        $serviceMediaMap = MediaAsset::query()
+            ->whereIn(
+                'mediaId',
+                $serviceMediaItems->pluck('mediaId')
+            )
+            ->get()
+            ->keyBy('mediaId');
 
-    return view('admin.services.edit', [
-        'service' => $service,
-        'serviceSolutions' => $serviceSolutions,
-        'serviceBenefits' => $serviceBenefits,
-        'serviceFaqLinks' => $serviceFaqLinks,
-        'serviceFaqMap' => $serviceFaqMap,
-        'serviceMediaItems' => $serviceMediaItems,
-        'serviceMediaMap' => $serviceMediaMap,
-        'mediaCategories' => $mediaCategories,
-        'serviceMediaCategoryMap' => $mediaCategories
-            ->keyBy('mediaCategoryId'),
-    ]);
-}
+        $mediaCategories = MediaCategory::query()
+            ->where('isActive', true)
+            ->orderBy('displayOrder')
+            ->orderBy('name')
+            ->get();
 
+        $seoMediaAssets = MediaAsset::query()
+            ->where('isPublic', true)
+            ->where('isPublished', true)
+            ->where('mimeType', 'like', 'image/%')
+            ->orderByDesc('createdAt')
+            ->get();
+
+        return view('admin.services.edit', [
+            'service' => $service,
+            'serviceSolutions' => $serviceSolutions,
+            'serviceBenefits' => $serviceBenefits,
+            'serviceFaqLinks' => $serviceFaqLinks,
+            'serviceFaqMap' => $serviceFaqMap,
+            'serviceMediaItems' => $serviceMediaItems,
+            'serviceMediaMap' => $serviceMediaMap,
+            'mediaCategories' => $mediaCategories,
+            'serviceMediaCategoryMap' => $mediaCategories
+                ->keyBy('mediaCategoryId'),
+            'seoMediaAssets' => $seoMediaAssets,
+        ]);
+    }
 
     public function update(
         Request $request,
@@ -129,6 +151,8 @@ public function edit(Service $service): View
 
         $service->fill($this->attributes($validated, $service));
         $service->save();
+
+        $this->saveSeo($service, $validated);
 
         return redirect()
             ->route('admin.services.edit', $service)
@@ -163,6 +187,26 @@ public function edit(Service $service): View
             'displayOrder' => ['nullable', 'integer', 'min:0', 'max:65535'],
             'isFeatured' => ['nullable', 'boolean'],
             'isPublished' => ['nullable', 'boolean'],
+
+            'seo' => ['nullable', 'array'],
+            'seo.metaTitle' => ['nullable', 'string', 'max:180'],
+            'seo.metaDescription' => ['nullable', 'string', 'max:320'],
+            'seo.canonicalUrl' => ['nullable', 'string', 'max:500'],
+            'seo.socialTitle' => ['nullable', 'string', 'max:180'],
+            'seo.socialDescription' => ['nullable', 'string', 'max:320'],
+            'seo.socialImageId' => [
+                'nullable',
+                'string',
+                Rule::exists('mediaasset', 'mediaId')
+                    ->where(function ($query): void {
+                        $query
+                            ->where('isPublic', true)
+                            ->where('isPublished', true)
+                            ->where('mimeType', 'like', 'image/%');
+                    }),
+            ],
+            'seo.robotsIndex' => ['nullable', 'boolean'],
+            'seo.robotsFollow' => ['nullable', 'boolean'],
         ]);
     }
 
@@ -222,5 +266,53 @@ public function edit(Service $service): View
         }
 
         return $slug;
+    }
+
+    private function saveSeo(
+        Service $service,
+        array $validated
+    ): void {
+        $seo = $validated['seo'] ?? [];
+
+        $service->seo()->updateOrCreate(
+            [
+                'serviceId' => $service->serviceId,
+            ],
+            [
+                'metaTitle' => $this->nullableTrim(
+                    $seo['metaTitle'] ?? null
+                ),
+                'metaDescription' => $this->nullableTrim(
+                    $seo['metaDescription'] ?? null
+                ),
+                'canonicalUrl' => $this->nullableTrim(
+                    $seo['canonicalUrl'] ?? null
+                ),
+                'socialTitle' => $this->nullableTrim(
+                    $seo['socialTitle'] ?? null
+                ),
+                'socialDescription' => $this->nullableTrim(
+                    $seo['socialDescription'] ?? null
+                ),
+                'socialImageId' => $this->nullableTrim(
+                    $seo['socialImageId'] ?? null
+                ),
+                'robotsIndex' => (bool) (
+                    $seo['robotsIndex'] ?? true
+                ),
+                'robotsFollow' => (bool) (
+                    $seo['robotsFollow'] ?? true
+                ),
+            ]
+        );
+    }
+
+    private function nullableTrim(mixed $value): ?string
+    {
+        $value = trim((string) $value);
+
+        return $value !== ''
+            ? $value
+            : null;
     }
 }

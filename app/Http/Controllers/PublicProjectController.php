@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CompanyProfile;
+use App\Models\MediaAsset;
 use App\Models\Project;
 use App\Models\ProjectComparison;
 use App\Models\ProjectMedia;
@@ -32,6 +33,7 @@ class PublicProjectController extends Controller
         abort_unless($project->isPublished, 404);
 
         $project->load([
+            'seo',
             'featuredImage',
             'serviceLinks.service',
             'tagLinks.tag',
@@ -66,11 +68,22 @@ class PublicProjectController extends Controller
             )
             ->values();
 
+        $socialImage = $project->seo?->socialImageId
+            ? MediaAsset::query()
+                ->where('mediaId', $project->seo->socialImageId)
+                ->where('isPublic', true)
+                ->where('isPublished', true)
+                ->where('mimeType', 'like', 'image/%')
+                ->first()
+            : null;
+
         return view('public.projects.show', [
             'companyProfile' => $this->companyProfile(),
             'project' => $project,
             'mediaItems' => $mediaItems,
             'comparisons' => $comparisons,
+            'seo' => $project->seo,
+            'socialImage' => $socialImage,
         ]);
     }
 

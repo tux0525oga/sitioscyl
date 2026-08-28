@@ -33,6 +33,8 @@ class PublicServiceController extends Controller
     {
         abort_unless($service->isPublished, 404);
 
+        $service->load('seo');
+
         $solutions = ServiceSolution::query()
             ->where('serviceId', $service->serviceId)
             ->where('isPublished', true)
@@ -76,6 +78,15 @@ class PublicServiceController extends Controller
                 ->first()
             : null;
 
+        $socialImage = $service->seo?->socialImageId
+            ? MediaAsset::query()
+                ->where('mediaId', $service->seo->socialImageId)
+                ->where('isPublic', true)
+                ->where('isPublished', true)
+                ->where('mimeType', 'like', 'image/%')
+                ->first()
+            : null;
+
         return view('public.services.show', [
             'companyProfile' => $this->companyProfile(),
             'service' => $service,
@@ -86,6 +97,8 @@ class PublicServiceController extends Controller
             'mediaLinks' => $mediaLinks,
             'mediaMap' => $mediaMap,
             'featuredImage' => $featuredImage,
+            'seo' => $service->seo,
+            'socialImage' => $socialImage,
         ]);
     }
 

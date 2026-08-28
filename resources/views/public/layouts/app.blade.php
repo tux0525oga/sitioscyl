@@ -3,9 +3,151 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'Somos Constructivos')</title>
-    <meta name="description" content="@yield('metaDescription', 'Soluciones constructivas para proyectos residenciales.')">
-    <link rel="stylesheet" href="{{ asset('css/site.css') }}">
+
+    @php
+        $pageTitle = trim(
+            $__env->yieldContent(
+                'title',
+                'Somos Constructivos'
+            )
+        );
+
+        $pageDescription = trim(
+            $__env->yieldContent(
+                'metaDescription',
+                'Soluciones constructivas para proyectos residenciales.'
+            )
+        );
+
+        $canonicalUrl = trim(
+            $__env->yieldContent(
+                'canonicalUrl',
+                url()->current()
+            )
+        );
+
+        $robots = trim(
+            $__env->yieldContent(
+                'robots',
+                'index,follow'
+            )
+        );
+
+        $ogTitle = trim(
+            $__env->yieldContent(
+                'ogTitle',
+                $pageTitle
+            )
+        );
+
+        $ogDescription = trim(
+            $__env->yieldContent(
+                'ogDescription',
+                $pageDescription
+            )
+        );
+
+        $ogUrl = trim(
+            $__env->yieldContent(
+                'ogUrl',
+                $canonicalUrl
+            )
+        );
+
+        $ogType = trim(
+            $__env->yieldContent(
+                'ogType',
+                'website'
+            )
+        );
+
+        $ogImage = trim(
+            $__env->yieldContent(
+                'ogImage',
+                ''
+            )
+        );
+
+        $twitterCard = trim(
+            $__env->yieldContent(
+                'twitterCard',
+                $ogImage !== ''
+                    ? 'summary_large_image'
+                    : 'summary'
+            )
+        );
+    @endphp
+
+    <title>{{ $pageTitle }}</title>
+
+    <meta
+        name="description"
+        content="{{ $pageDescription }}"
+    >
+
+    <link
+        rel="canonical"
+        href="{{ $canonicalUrl }}"
+    >
+
+    <meta
+        name="robots"
+        content="{{ $robots }}"
+    >
+
+    <meta
+        property="og:title"
+        content="{{ $ogTitle }}"
+    >
+
+    <meta
+        property="og:description"
+        content="{{ $ogDescription }}"
+    >
+
+    <meta
+        property="og:type"
+        content="{{ $ogType }}"
+    >
+
+    <meta
+        property="og:url"
+        content="{{ $ogUrl }}"
+    >
+
+    @if ($ogImage !== '')
+        <meta
+            property="og:image"
+            content="{{ $ogImage }}"
+        >
+    @endif
+
+    <meta
+        name="twitter:card"
+        content="{{ $twitterCard }}"
+    >
+
+    <meta
+        name="twitter:title"
+        content="{{ $ogTitle }}"
+    >
+
+    <meta
+        name="twitter:description"
+        content="{{ $ogDescription }}"
+    >
+
+    @if ($ogImage !== '')
+        <meta
+            name="twitter:image"
+            content="{{ $ogImage }}"
+        >
+    @endif
+
+    <link
+        rel="stylesheet"
+        href="{{ asset('css/site.css') }}"
+    >
 </head>
 <script
     src="{{ asset('js/public-navigation.js') }}"
