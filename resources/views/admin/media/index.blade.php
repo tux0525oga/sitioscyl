@@ -341,9 +341,108 @@
 
 
         @if ($mediaAssets->hasPages())
-            <div class="admin-media-pagination">
-                {{ $mediaAssets->links() }}
-            </div>
+            @php
+                $currentPage = $mediaAssets->currentPage();
+                $lastPage = $mediaAssets->lastPage();
+
+                $visiblePages = collect([
+                    1,
+                    $currentPage - 2,
+                    $currentPage - 1,
+                    $currentPage,
+                    $currentPage + 1,
+                    $currentPage + 2,
+                    $lastPage,
+                ])
+                    ->filter(fn ($page) => $page >= 1 && $page <= $lastPage)
+                    ->unique()
+                    ->sort()
+                    ->values();
+            @endphp
+
+            <nav
+                class="pagination-bar admin-media-pagination"
+                aria-label="Paginación de multimedia"
+            >
+                <span class="pagination-bar__meta">
+                    Mostrando {{ $mediaAssets->firstItem() }}
+                    – {{ $mediaAssets->lastItem() }}
+                    de {{ $mediaAssets->total() }}
+                </span>
+
+                <div class="pagination-actions">
+                    @if ($mediaAssets->onFirstPage())
+                        <span
+                            class="pagination-link is-disabled"
+                            aria-hidden="true"
+                        >
+                            ‹
+                        </span>
+                    @else
+                        <a
+                            class="pagination-link"
+                            href="{{ $mediaAssets->previousPageUrl() }}"
+                            rel="prev"
+                            aria-label="Página anterior"
+                        >
+                            ‹
+                        </a>
+                    @endif
+
+                    @php $previousPage = null; @endphp
+
+                    @foreach ($visiblePages as $page)
+                        @if (
+                            $previousPage !== null
+                            && $page > $previousPage + 1
+                        )
+                            <span
+                                class="pagination-ellipsis"
+                                aria-hidden="true"
+                            >
+                                …
+                            </span>
+                        @endif
+
+                        @if ($page === $currentPage)
+                            <span
+                                class="pagination-link is-active"
+                                aria-current="page"
+                            >
+                                {{ $page }}
+                            </span>
+                        @else
+                            <a
+                                class="pagination-link"
+                                href="{{ $mediaAssets->url($page) }}"
+                                aria-label="Ir a la página {{ $page }}"
+                            >
+                                {{ $page }}
+                            </a>
+                        @endif
+
+                        @php $previousPage = $page; @endphp
+                    @endforeach
+
+                    @if ($mediaAssets->hasMorePages())
+                        <a
+                            class="pagination-link"
+                            href="{{ $mediaAssets->nextPageUrl() }}"
+                            rel="next"
+                            aria-label="Página siguiente"
+                        >
+                            ›
+                        </a>
+                    @else
+                        <span
+                            class="pagination-link is-disabled"
+                            aria-hidden="true"
+                        >
+                            ›
+                        </span>
+                    @endif
+                </div>
+            </nav>
         @endif
 
     @endif

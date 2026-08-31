@@ -225,11 +225,45 @@
         </div>
     </header>
     <main>@yield('content')</main>
-    <footer class="site-footer">
-        <div class="site-shell">
-            <strong>SOMOS CONSTRUCTIVOS</strong>
-            <p>{{ $companyProfile?->slogan ?: 'Tu proyecto, nuestro compromiso!' }}</p>
+<footer class="site-footer">
+    <div class="site-shell site-footer__inner">
+
+        <div class="site-footer__brand">
+            <strong>
+                {{ $companyProfile?->companyName ?: 'SOMOS CONSTRUCTIVOS' }}
+            </strong>
+
+            <p>
+                {{
+                    $companyProfile?->slogan
+                    ?: 'Tu proyecto, nuestro compromiso!'
+                }}
+            </p>
         </div>
-    </footer>
+
+        <div class="site-footer__meta">
+            <span>
+                {{
+                    collect([
+                        $companyProfile?->locationCity
+                            ?: 'San Mateo Atenco',
+
+                        $companyProfile?->locationState
+                            ?: 'Estado de México',
+                    ])
+                    ->filter()
+                    ->join(', ')
+                }}
+            </span>
+
+            <span>
+                © {{ now()->year }}
+                {{ $companyProfile?->companyName ?: 'Somos Constructivos' }}.
+                Todos los derechos reservados.
+            </span>
+        </div>
+
+    </div>
+</footer>
 </body>
 </html>

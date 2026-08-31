@@ -121,17 +121,55 @@
     <div class="site-shell">
         <span class="eyebrow eyebrow--light">GALERÍA</span>
         <h2>Proceso, detalles y resultado.</h2>
-        <div class="project-detail-gallery">
+                <div class="project-detail-gallery">
             @foreach ($mediaItems as $mediaItem)
                 @php
                     $asset = $mediaItem->mediaAsset;
-                    $imageUrl = \Illuminate\Support\Facades\Storage::disk($asset->storageDisk)->url($asset->storagePath);
+
+                    $imageUrl = \Illuminate\Support\Facades\Storage::disk(
+                        $asset->storageDisk
+                    )->url($asset->storagePath);
+
+                    $caption = $asset->title
+                        ?: $mediaItem->mediaCategory?->name
+                        ?: $project->name;
                 @endphp
-                <figure class="project-detail-gallery__item {{ $loop->first ? 'project-detail-gallery__item--large' : '' }}">
-                    <img src="{{ $imageUrl }}" alt="{{ $asset->altText ?: $project->name }}" loading="lazy">
+
+                <figure class="project-detail-gallery__item">
+                    <button
+                        class="public-gallery-trigger"
+                        type="button"
+                        data-gallery-src="{{ $imageUrl }}"
+                        data-gallery-alt="{{ $asset->altText ?: $project->name }}"
+                        data-gallery-caption="{{ $caption }}"
+                        aria-label="Ampliar imagen: {{ $caption }}"
+                    >
+                        <img
+                            src="{{ $imageUrl }}"
+                            alt="{{ $asset->altText ?: $project->name }}"
+                            loading="lazy"
+                        >
+
+                        <span
+                            class="public-gallery-trigger__hint"
+                            aria-hidden="true"
+                        >
+                            Ver imagen
+                        </span>
+                    </button>
+
                     <figcaption>
-                        @if ($mediaItem->mediaCategory)<span>{{ $mediaItem->mediaCategory->name }}</span>@endif
-                        @if ($asset->title)<strong>{{ $asset->title }}</strong>@endif
+                        @if ($mediaItem->mediaCategory)
+                            <span>
+                                {{ $mediaItem->mediaCategory->name }}
+                            </span>
+                        @endif
+
+                        @if ($asset->title)
+                            <strong>
+                                {{ $asset->title }}
+                            </strong>
+                        @endif
                     </figcaption>
                 </figure>
             @endforeach

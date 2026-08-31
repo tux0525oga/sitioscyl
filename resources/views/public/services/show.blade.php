@@ -111,12 +111,52 @@
 <section class="public-section public-section--dark">
     <div class="site-shell">
         <span class="eyebrow eyebrow--light">GALERÍA</span><h2>Detalles y resultados</h2>
-        <div class="gallery-grid">
+                <div class="gallery-grid">
             @foreach ($mediaLinks as $mediaLink)
-                @php $asset = $mediaMap->get($mediaLink->mediaId); @endphp
+                @php
+                    $asset = $mediaMap->get($mediaLink->mediaId);
+                @endphp
+
                 @if ($asset)
-                    @php $url = \Illuminate\Support\Facades\Storage::disk($asset->storageDisk)->url($asset->storagePath); @endphp
-                    <figure><img src="{{ $url }}" alt="{{ $asset->altText ?: $service->name }}">@if ($asset->title)<figcaption>{{ $asset->title }}</figcaption>@endif</figure>
+                    @php
+                        $url = \Illuminate\Support\Facades\Storage::disk(
+                            $asset->storageDisk
+                        )->url($asset->storagePath);
+
+                        $caption = $asset->title
+                            ?: $asset->altText
+                            ?: $service->name;
+                    @endphp
+
+                    <figure>
+                        <button
+                            class="public-gallery-trigger"
+                            type="button"
+                            data-gallery-src="{{ $url }}"
+                            data-gallery-alt="{{ $asset->altText ?: $service->name }}"
+                            data-gallery-caption="{{ $caption }}"
+                            aria-label="Ampliar imagen: {{ $caption }}"
+                        >
+                            <img
+                                src="{{ $url }}"
+                                alt="{{ $asset->altText ?: $service->name }}"
+                                loading="lazy"
+                            >
+
+                            <span
+                                class="public-gallery-trigger__hint"
+                                aria-hidden="true"
+                            >
+                                Ver imagen
+                            </span>
+                        </button>
+
+                        @if ($asset->title)
+                            <figcaption>
+                                {{ $asset->title }}
+                            </figcaption>
+                        @endif
+                    </figure>
                 @endif
             @endforeach
         </div>

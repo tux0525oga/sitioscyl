@@ -2312,3 +2312,313 @@ body {
     color: #D4AF37 !important;
     font-weight: 900 !important;
 }
+
+/* Footer corporativo */
+
+.site-footer__inner {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.site-footer__brand p {
+    margin-bottom: 0;
+}
+
+.site-footer__meta {
+    display: grid;
+    gap: 6px;
+
+    color: rgba(255, 255, 255, 0.65);
+
+    font-size: 12px;
+    line-height: 1.5;
+
+    text-align: right;
+}
+
+@media (max-width: 700px) {
+    .site-footer__inner {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .site-footer__meta {
+        text-align: left;
+    }
+}
+
+
+/* =========================================================
+   GALERÍAS PÚBLICAS - 2 COLUMNAS + VISOR AMPLIADO
+   ========================================================= */
+
+.gallery-grid,
+.project-detail-gallery {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 20px !important;
+    margin-top: 32px;
+}
+
+.gallery-grid figure,
+.project-detail-gallery__item,
+.project-detail-gallery__item--large {
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    grid-column: auto !important;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 12px;
+    background: #0d171e;
+}
+
+.public-gallery-trigger {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    padding: 0;
+    border: 0;
+    background: #0d171e;
+    cursor: zoom-in;
+}
+
+.gallery-grid .public-gallery-trigger img,
+.project-detail-gallery .public-gallery-trigger img {
+    position: static !important;
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: auto !important;
+    object-position: center;
+    transition:
+        transform 220ms ease,
+        opacity 220ms ease;
+}
+
+/* Servicios: mostramos completa la fotografía dentro de la tarjeta. */
+.gallery-grid .public-gallery-trigger img {
+    object-fit: contain !important;
+}
+
+/* Proyectos: mantenemos una composición fotográfica uniforme. */
+.project-detail-gallery .public-gallery-trigger img {
+    object-fit: cover !important;
+}
+
+.public-gallery-trigger:hover img {
+    transform: scale(1.025);
+    opacity: 0.94;
+}
+
+.public-gallery-trigger:focus-visible {
+    outline: 3px solid #d4af37;
+    outline-offset: -3px;
+}
+
+.public-gallery-trigger__hint {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    z-index: 2;
+    display: inline-flex;
+    min-height: 30px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 11px;
+    border: 1px solid rgba(255, 255, 255, 0.30);
+    border-radius: 999px;
+    background: rgba(12, 23, 30, 0.82);
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: 0.03em;
+    pointer-events: none;
+}
+
+.gallery-grid figcaption {
+    padding: 11px 14px 13px !important;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.project-detail-gallery__item figcaption {
+    position: static !important;
+    padding: 11px 14px 13px;
+    background: #0d171e;
+    color: #ffffff;
+}
+
+.project-detail-gallery__item figcaption span,
+.project-detail-gallery__item figcaption strong {
+    display: block;
+    text-shadow: none !important;
+}
+
+.project-detail-gallery__item figcaption span {
+    color: #d4af37;
+    font-size: 9px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.project-detail-gallery__item figcaption strong {
+    margin-top: 3px;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* Visor ampliado */
+.public-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 78px;
+    background: rgba(6, 14, 19, 0.94);
+}
+
+.public-lightbox.is-open {
+    display: flex;
+}
+
+.public-lightbox__stage {
+    position: relative;
+    display: flex;
+    width: min(1180px, 100%);
+    max-height: calc(100vh - 56px);
+    align-items: center;
+    justify-content: center;
+}
+
+.public-lightbox__figure {
+    display: grid;
+    max-width: 100%;
+    max-height: calc(100vh - 56px);
+    gap: 10px;
+    margin: 0;
+    justify-items: center;
+}
+
+.public-lightbox__image {
+    display: block;
+    max-width: 100%;
+    max-height: calc(100vh - 110px);
+    object-fit: contain;
+}
+
+.public-lightbox__caption {
+    min-height: 20px;
+    color: rgba(255, 255, 255, 0.76);
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.public-lightbox__close,
+.public-lightbox__nav {
+    position: absolute;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 50%;
+    background: rgba(20, 33, 43, 0.82);
+    color: #ffffff;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 26px;
+    line-height: 1;
+}
+
+.public-lightbox__close:hover,
+.public-lightbox__nav:hover {
+    border-color: #d4af37;
+    background: #d4af37;
+    color: #14212b;
+}
+
+.public-lightbox__close {
+    top: 0;
+    right: 0;
+}
+
+.public-lightbox__nav {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.public-lightbox__nav--prev {
+    left: -62px;
+}
+
+.public-lightbox__nav--next {
+    right: -62px;
+}
+
+.public-lightbox__nav[hidden] {
+    display: none;
+}
+
+body.public-lightbox-open {
+    overflow: hidden;
+}
+
+@media (max-width: 700px) {
+    .gallery-grid,
+    .project-detail-gallery {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+
+    .public-lightbox {
+        padding: 64px 14px 68px;
+    }
+
+    .public-lightbox__stage {
+        width: 100%;
+        max-height: calc(100vh - 132px);
+    }
+
+    .public-lightbox__image {
+        max-height: calc(100vh - 190px);
+    }
+
+    .public-lightbox__close,
+    .public-lightbox__nav {
+        width: 42px;
+        height: 42px;
+        font-size: 23px;
+    }
+
+    .public-lightbox__close {
+        top: -52px;
+        right: 0;
+    }
+
+    .public-lightbox__nav {
+        top: auto;
+        bottom: -54px;
+        transform: none;
+    }
+
+    .public-lightbox__nav--prev {
+        left: calc(50% - 52px);
+    }
+
+    .public-lightbox__nav--next {
+        right: calc(50% - 52px);
+    }
+}
