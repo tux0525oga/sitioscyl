@@ -6,13 +6,17 @@
 @section('content')
 @php
     $heroUrl = null;
+    $heroAlt = 'Somos Constructivos';
 
-    if ($heroProject?->featuredImage) {
+    if ($heroMediaAsset) {
         $heroUrl = \Illuminate\Support\Facades\Storage::disk(
-            $heroProject->featuredImage->storageDisk
+            $heroMediaAsset->storageDisk
         )->url(
-            $heroProject->featuredImage->storagePath
+            $heroMediaAsset->storagePath
         );
+
+        $heroAlt = $heroMediaAsset->altText
+            ?: 'Somos Constructivos';
     }
 @endphp
 
@@ -21,7 +25,7 @@
         <div class="home-hero__media">
             <img
                 src="{{ $heroUrl }}"
-                alt="{{ $heroProject->featuredImage->altText ?: $heroProject->name }}"
+                alt="{{ $heroAlt }}"
             >
         </div>
     @endif

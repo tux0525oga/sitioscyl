@@ -36,6 +36,7 @@ class CompanyIdentityMediaService
             'logoMediaId',
             'Logotipo Somos Constructivos',
             'Logotipo de Somos Constructivos',
+            'Activo de identidad visual corporativa.',
             $uploadedBy
         );
     }
@@ -51,6 +52,23 @@ class CompanyIdentityMediaService
             'monogramMediaId',
             'Monograma Somos Constructivos',
             'Monograma de Somos Constructivos',
+            'Activo de identidad visual corporativa.',
+            $uploadedBy
+        );
+    }
+
+    public function uploadHomeHero(
+        CompanyProfile $companyProfile,
+        UploadedFile $file,
+        ?UserAccount $uploadedBy = null
+    ): MediaAsset {
+        return $this->uploadIdentityImage(
+            $companyProfile,
+            $file,
+            'homeHeroMediaId',
+            'Portada de inicio Somos Constructivos',
+            'Imagen principal de Somos Constructivos',
+            'Imagen principal de portada del sitio público.',
             $uploadedBy
         );
     }
@@ -61,6 +79,7 @@ class CompanyIdentityMediaService
         string $profileField,
         string $title,
         string $altText,
+        string $description,
         ?UserAccount $uploadedBy
     ): MediaAsset {
         $this->validateImage($file);
@@ -139,6 +158,7 @@ class CompanyIdentityMediaService
                     $profileField,
                     $title,
                     $altText,
+                    $description,
                     $uploadedBy,
                     $storedFileName,
                     $storagePath,
@@ -175,7 +195,7 @@ class CompanyIdentityMediaService
                         'altText' =>
                             $altText,
                         'description' =>
-                            'Activo de identidad visual corporativa.',
+                            $description,
                         'isPublic' =>
                             true,
                         'isPublished' =>

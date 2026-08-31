@@ -16,7 +16,7 @@
 
             <p>
                 Consulta los archivos utilizados en proyectos,
-                servicios e identidad visual.
+                servicios, identidad visual y portada del sitio.
             </p>
         </div>
     </div>
@@ -129,7 +129,7 @@
                     ['usage' => 'identity']
                 ) }}"
             >
-                Identidad visual
+                Identidad y portada
             </a>
 
             <a
@@ -176,6 +176,10 @@
 
                     $isMonogram =
                         $companyProfile?->monogramMediaId
+                        === $mediaAsset->mediaId;
+
+                    $isHomeHero =
+                        $companyProfile?->homeHeroMediaId
                         === $mediaAsset->mediaId;
 
                     $mediaUrl =
@@ -232,6 +236,17 @@
                                 </span>
                             @endif
 
+                            @if ($isHomeHero)
+                                <span
+                                    class="
+                                        admin-media-badge
+                                        admin-media-badge--identity
+                                    "
+                                >
+                                    Portada de inicio
+                                </span>
+                            @endif
+
                             @if (
                                 $mediaAsset->project_links_count > 0
                             )
@@ -251,6 +266,7 @@
                             @if (
                                 !$isLogo
                                 && !$isMonogram
+                                && !$isHomeHero
                                 && $mediaAsset->project_links_count === 0
                                 && $mediaAsset->service_links_count === 0
                             )

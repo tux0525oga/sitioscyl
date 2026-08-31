@@ -322,10 +322,13 @@
                         IDENTIDAD VISUAL
                     </span>
 
-                    <h2>Logotipo y monograma</h2>
+                    <h2>
+                        Logotipo, monograma y portada
+                    </h2>
 
                     <p>
-                        Activos corporativos utilizados en el sitio público.
+                        Activos corporativos y fotografía principal
+                        utilizados en el sitio público.
                     </p>
                 </div>
             </div>
@@ -392,6 +395,42 @@
 
                         <small class="admin-field__hint">
                             JPG, PNG o WEBP. Máximo 15 MB.
+                        </small>
+                    </div>
+
+                </div>
+
+
+                <div class="admin-identity-card">
+
+                    <div class="admin-identity-preview admin-identity-preview--logo">
+                        @if ($homeHeroUrl)
+                            <img
+                                src="{{ $homeHeroUrl }}"
+                                alt="Portada actual de Inicio de Somos Constructivos"
+                            >
+                        @else
+                            <span>
+                                Sin portada configurada
+                            </span>
+                        @endif
+                    </div>
+
+                    <div class="admin-field">
+                        <label for="homeHeroFile">
+                            Imagen principal de Inicio
+                        </label>
+
+                        <input
+                            id="homeHeroFile"
+                            name="homeHeroFile"
+                            type="file"
+                            accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+                        >
+
+                        <small class="admin-field__hint">
+                            JPG, PNG o WEBP. Máximo 15 MB.
+                            Recomendado: imagen horizontal de alta calidad.
                         </small>
                     </div>
 

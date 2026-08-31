@@ -20,14 +20,22 @@ class AdminCompanyProfileController extends Controller
             ->with([
                 'logo',
                 'monogram',
+                'homeHeroMedia',
             ])
             ->where('code', 'Main')
             ->firstOrFail();
 
         return view('admin.configuration.edit', [
             'companyProfile' => $companyProfile,
-            'logoUrl' => $this->mediaUrl($companyProfile->logo),
-            'monogramUrl' => $this->mediaUrl($companyProfile->monogram),
+            'logoUrl' => $this->mediaUrl(
+                $companyProfile->logo
+            ),
+            'monogramUrl' => $this->mediaUrl(
+                $companyProfile->monogram
+            ),
+            'homeHeroUrl' => $this->mediaUrl(
+                $companyProfile->homeHeroMedia
+            ),
         ]);
     }
 
@@ -102,6 +110,12 @@ class AdminCompanyProfileController extends Controller
                 'mimes:jpg,jpeg,png,webp',
                 'max:15360',
             ],
+            'homeHeroFile' => [
+                'nullable',
+                'file',
+                'mimes:jpg,jpeg,png,webp',
+                'max:15360',
+            ],
         ]);
 
         $companyProfile->fill([
@@ -135,6 +149,16 @@ class AdminCompanyProfileController extends Controller
             $identityMediaService->uploadMonogram(
                 $companyProfile,
                 $request->file('monogramFile'),
+                $user instanceof UserAccount
+                    ? $user
+                    : null
+            );
+        }
+
+        if ($request->hasFile('homeHeroFile')) {
+            $identityMediaService->uploadHomeHero(
+                $companyProfile,
+                $request->file('homeHeroFile'),
                 $user instanceof UserAccount
                     ? $user
                     : null

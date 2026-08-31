@@ -36,6 +36,7 @@ class CompanyProfile extends Model
         'businessHours',
         'logoMediaId',
         'monogramMediaId',
+        'homeHeroMediaId',
     ];
 
     public function logo(): BelongsTo
@@ -52,6 +53,15 @@ class CompanyProfile extends Model
         return $this->belongsTo(
             MediaAsset::class,
             'monogramMediaId',
+            'mediaId'
+        );
+    }
+
+    public function homeHeroMedia(): BelongsTo
+    {
+        return $this->belongsTo(
+            MediaAsset::class,
+            'homeHeroMediaId',
             'mediaId'
         );
     }

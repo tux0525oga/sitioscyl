@@ -29,6 +29,7 @@ class AdminMediaController extends Controller
         $identityMediaIds = collect([
             $companyProfile?->logoMediaId,
             $companyProfile?->monogramMediaId,
+            $companyProfile?->homeHeroMediaId,
         ])
             ->filter()
             ->values();
