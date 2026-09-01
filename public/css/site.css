@@ -2622,3 +2622,21 @@ body.public-lightbox-open {
         right: calc(50% - 52px);
     }
 }
+
+/* Ajuste botón CTA final de Inicio */
+
+.home-final-cta .public-button {
+    min-width: 190px;
+    min-height: 52px;
+    padding: 0 28px !important;
+    flex: 0 0 auto;
+    font-size: 13px !important;
+    white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+    .home-final-cta .public-button {
+        width: 100%;
+        min-width: 0;
+    }
+}
