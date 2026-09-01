@@ -148,7 +148,7 @@
 
     <link
         rel="stylesheet"
-        href="{{ asset('css/site.css') }}"
+        href="{{ asset('css/site.css') }}?v={{ filemtime(public_path('css/site.css')) }}"
     >
 </head>
 <script
