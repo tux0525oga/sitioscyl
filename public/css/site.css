@@ -2640,3 +2640,11 @@ body.public-lightbox-open {
         min-width: 0;
     }
 }
+
+/* Botones públicos — acabado corporativo redondeado */
+
+.public-button,
+a.public-button,
+button.public-button {
+    border-radius: 999px !important;
+}
