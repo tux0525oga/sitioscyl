@@ -15,6 +15,9 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use InvalidArgumentException;
+use App\Mail\QuoteRequestReceived;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class PublicQuoteController extends Controller
 {
@@ -387,7 +390,33 @@ class PublicQuoteController extends Controller
             $fileUploadWarning =
                 'Tu solicitud quedó registrada, pero uno o más archivos no pudieron adjuntarse. Conserva tu folio para dar seguimiento.';
         }
+        try {
+            $quoteRequest->load([
+                'contact',
+                'serviceLinks.service',
+                'files',
+            ]);
 
+            Mail::to(
+                config('mail.quote_notification_to')
+            )->send(
+                new QuoteRequestReceived(
+                    $quoteRequest
+                )
+            );
+        } catch (\Throwable $exception) {
+            Log::error(
+                'No se pudo enviar la notificación de cotización.',
+                [
+                    'quoteRequestId' =>
+                        $quoteRequest->quoteRequestId,
+                    'folio' =>
+                        $quoteRequest->folio,
+                    'exception' =>
+                        $exception->getMessage(),
+                ]
+            );
+        }
         return redirect()
             ->route(
                 'public.quote.thanks',

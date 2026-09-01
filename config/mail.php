@@ -112,5 +112,9 @@ return [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
-
+    'quote_notification_to' =>
+        env(
+            'QUOTE_NOTIFICATION_EMAIL',
+            'proyectos@somosconstructivos.com'
+            ),
 ];
